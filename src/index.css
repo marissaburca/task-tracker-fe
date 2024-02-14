@@ -1,13 +1,178 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css?family=Raleway");
+
+/* THEME COLOR */
+.dark-theme {
+  background-color: rgb(13,29,50);
+  color: white;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.light-theme {
+  background-color: #fff;
+  color: black;
+  
+}
+/* BODY DIMENSION */
+#root {
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  min-width: 400px;
+  font-family: "Raleway", sans-serif;
+  
+}
+
+/* ***************** ACCESS PAGES *************************** */
+
+/* TEXT LOGIN TASK TRACKER STYLING */
+.anim {
+  letter-spacing: 1rem;
+  border: 4px solid rgba(200, 96, 54, 0.79);
+  border-width: 10px 0;
+  padding: 3rem 0em;
+
+  .enter {
+    font: 700 4em/1 "Oswald", sans-serif;
+    letter-spacing: 0;
+    padding: 0.25em 0 0.325em;
+    display: block;
+    margin: 0 auto;
+    text-shadow: 30px 30px 100px rgba(255, 255, 255, 0.5);
+
+    background: url(https://i.ibb.co/RDTnNrT/animated-text-fill.png) repeat-y;
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    -webkit-text-fill-color: transparent;
+  }
+}
+/* TEXT SIGNIN TASK TRACKER STYLING */
+
+.anim2 {
+  letter-spacing: 1rem;
+  border: 4px solid rgba(102,188, 78, 0.79)
+  ;
+  border-width: 10px 0;
+  padding: 3rem 0em;
+
+  .enter2 {
+    font: 700 4em/1 "Oswald", sans-serif;
+    letter-spacing: 0;
+    padding: 0.25em 0 0.325em;
+    display: block;
+    margin: 0 auto;
+    text-shadow: 10px 20px 90px rgba(255, 255, 255);
+
+    background: url(https://img.freepik.com/premium-photo/green-color-powder-explosion-black-background_36326-1875.jpg) center;
+    background-clip: text;
+
+    -webkit-text-fill-color:transparent;
+  }
+}
+
+/* LOGIN FORM STYLING */
+.logFormExt{
+  padding: 20px;
+  background-color: rgba(200, 96, 54, 0.79);
+  color:rgb(7, 4, 4);
+}
+.logFormInt{
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  color:white;
+  text-align:center;
+}
+/* SIGNIN FORM STYLING */
+.logFormExt2{
+  padding: 20px;
+  background-color: rgba(102,188, 78, 0.79);
+  color:rgb(7, 4, 4);
+}
+.logFormInt2{
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  color:white;
+  text-align:center;
+}
+
+/* FORMS INPUT STYLING */
+.labels{
+  font-size: 1.2rem;
+}
+.glow:hover {
+  border-color: rgb(219, 98, 55);
+  box-shadow: 0px 0px 20px 5px #ffaa00;
+}
+.glow:active {
+  border-color: rgb(219, 98, 55);
+  box-shadow: 0px 0px 20px 5px #ffaa00;
+}
+.glow1:hover {
+  border-color: rgb(166, 244, 32);
+  box-shadow: 0px 0px 20px 5px rgb(166, 244, 32);
+}
+.glow1:active {
+  border-color: rgb(166, 244, 32);
+  box-shadow: 0px 0px 20px 5px rgb(166, 244, 32);
+}
+
+
+
+/* LOG IN BUTTON STYLING */
+.glowing-btn-1 {
+  background-color:rgb(24, 46, 76, 0.7);
+  color: white;
+  border-radius: 15px;
+  border: 3px solid  rgb(219, 98, 55);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+.glowing-btn-1:hover {
+  background-color: rgb(24, 46, 76, 0.7);
+  color: rgb(219, 98, 55);
+  box-shadow: 0 0 20px 5px #d9ff00;
+  transform: scale(1.1);
+}
+/* SIGN UP BUTTON STYLING */
+.glowing-btn-2 {
+  background-color:rgb(24, 46, 76, 0.7);
+  color: white;
+  border-radius: 15px;
+  border: 3px solid rgb(127, 188, 21);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+.glowing-btn-2:hover {
+  background-color: rgb(24, 46, 76, 0.7);
+  color:rgb(127, 188, 21);
+  box-shadow: 0 0 20px #d9ff00;
+  transform: scale(1.1);
+}
+/* TEXT OVER SIGN IN STYLING*/
+.register{
+  margin-bottom:0.5rem;
+  font-size: 0.8rem;
+}
+/* AVATAR-OPTION  */
+.avatar-img{
+  width: 50px; 
+  height: 50px; 
+  border: 2px solid #ddd; 
+  border-radius: 25px;
+  margin-left: 10px; 
+}
+
+.avatar-img:hover{
+  color:rgb(127, 188, 21);
+  border-radius: 25px;
+  box-shadow: 0 0 20px #d9ff00;
+  transform: scale(1.1);
+}
+
+/* DIFFERENT COLOR BASED ON PATH IN APP */
+.register-theme{
+  background-color: rgba(102,188, 78, 0.79);
 }
