@@ -5,10 +5,10 @@ import { FaSun, FaMoon } from "react-icons/fa";
 //Button shape
 const PillButtonStyle = styled.div`
   position: relative;
-  width: 55px;
-  height: 30px;
-  background-color: #fff;
-  border: 2px solid rgb(0, 0, 55);
+  width: 50px;
+  height: 26px;
+  background-color: white;
+  border: 2px solid #999691;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -22,8 +22,8 @@ const PillDotStyle = styled.div`
   position: absolute;
   width: 20px;
   height: 20px;
-  background-color: rgb(13, 29, 50);
-  border: 2px solid rgb(181, 193, 175);
+  background-color: rgb(255, 255, 235);
+  border: 2px solid #999691;
   border-radius: 50%;
   transition: transform 0.3s ease;
   z-index: 2;
@@ -42,7 +42,7 @@ export default function PillButton({ onClick }) {
     <PillButtonStyle onClick={togglePosition}>
       <FaSun className="fs-6 me-2 text-warning " />
       <PillDotStyle $isRight={isRight} />
-      <FaMoon className="fs-6 text-dark" />
+      <FaMoon className="fs-6" />
     </PillButtonStyle>
   );
 }

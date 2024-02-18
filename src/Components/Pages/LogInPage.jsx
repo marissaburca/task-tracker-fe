@@ -1,15 +1,14 @@
-import { Col, Row, Button } from "react-bootstrap";
+import "../CSS/AccessPages.css"
+import { Col, Row} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+
+
 export default function LogInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginDetails, setLoginDetails] = useState({
-    email: email,
-    password: password,
-  });
   const navigate = useNavigate();
 
   /* ******* FOCUS ON INPUT FIELD AND OUT ********* */
@@ -39,6 +38,7 @@ export default function LogInPage() {
     boxShadow: focusedInput === inputId ? "0px 0px 20px 5px #ffaa00" : "",
   });
   /* ************************************************ */
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +46,7 @@ export default function LogInPage() {
       await getUser();
       const token = localStorage.getItem("token");
       console.log("Saved token:", token);
+      localStorage.setItem("email", email);
       navigate("/dashboard");
     } catch (error) {
       console.error("Error during login request:", error);
@@ -78,9 +79,9 @@ export default function LogInPage() {
     }
   }
   return (
-    <Row className="mx-auto w-75">
-      <Col className="anim d-flex align-items-center col-12 mb-3 ">
-        <h1 className="enter">TASK TRACKER</h1>
+    <Row className="mx-auto w-75 ">
+      <Col className="anim d-flex text-center col-12 mb-3 ">
+        <h1 className="enter  animate__animated animate__flip ">TASK TRACKER</h1>
       </Col>
       <Col className="px-0 logFormExt col-12">
         <Form onSubmit={handleSubmit} className="logFormInt">

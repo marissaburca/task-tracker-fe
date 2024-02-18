@@ -1,0 +1,29 @@
+.footer {
+    align-items: center;
+  
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: transparent;
+  }
+  
+  .footer.light {
+    color: #212529;
+  }
+  
+  .footer.dark {
+    color: #f8f9fa;
+  }
+  .myIcon {
+    font-size: 1.2rem;
+    margin-right: 15px;
+    color: #999691;
+  }
+  .myIcon:hover {
+    transform: scale(1.2);
+    color: #ffaa00;
+  }
+  .copyright{
+    color: #999691;
+  }

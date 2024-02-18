@@ -1,3 +1,4 @@
+import "../CSS/AccessPages.css";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { Col, Row } from "react-bootstrap";
@@ -47,7 +48,7 @@ export default function SignInPage() {
     email: "",
     password: "",
   });
-  const [regit, setRegist] = useState(false);
+  const [regist, setRegist] = useState(false);
   const navigate = useNavigate();
 
   function registerUser() {
@@ -129,12 +130,20 @@ export default function SignInPage() {
     boxShadow:
       focusedInput === inputId ? "0px 0px 20px 5px rgb(166, 244, 32)" : "",
   });
+  /* AVATAR CLICKED */
+  const [selectedAvatarId, setSelectedAvatarId] = useState(null);
+
+  const handleAvatarClick = (id) => {
+    setRegister({ ...register, avatarId: id });
+    setSelectedAvatarId(id); // UPDATE AVATAR ID WHEN SELECTED
+  };
+
   /* ************************************************ */
 
   return (
-    <Row className="mx-auto w-75">
-      <Col className="anim2 d-flex align-items-center col-12 mb-3 ">
-        <h1 className="enter2">TASK TRACKER</h1>
+    <Row className="mx-auto w-75 ">
+      <Col className="anim2 d-flex text-center col-12 mb-3 ">
+        <h1 className="enter2 animate__animated animate__flip">TASK TRACKER</h1>
       </Col>
       <Col className="px-0 logFormExt2 col-12 ">
         <Form
@@ -233,21 +242,21 @@ export default function SignInPage() {
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group controlId="avatarSelect" className="col-12">
+            <Form.Group controlId="avatarSelect" className="col-11">
               <Form.Label className="labels">CHOOSE AN AVATAR</Form.Label>
               <div className="avatar-selection-container">
-        {Array.isArray(avatars) &&
-          avatars.map((avatar) => (
-            <div key={avatar.id} className="avatar-option" onClick={() => setRegister({...register, avatarId: avatar.id})} style={{ cursor: 'pointer', display: 'inline-block', margin: '5px' }}>
-              <img
-                src={avatar.url}
-                alt={`Avatar ${avatar.id}`}
-                className="avatar-img"
-               
-              />
-            </div>
-          ))}
-      </div>
+                {Array.isArray(avatars) &&
+                  avatars.map((avatar) => (
+                    <div
+                    key={avatar.id}
+                    className={`avatar-option ${selectedAvatarId === avatar.id ? "avatar-img-clicked" : ""}`}
+                    onClick={() => handleAvatarClick(avatar.id)}
+                    style={{ cursor: "pointer", display: "inline-block", margin: "5px" }}
+                  >
+                    <img src={avatar.url} alt={`Avatar ${avatar.id}`} className="avatar-img" />
+                  </div>
+                  ))}
+              </div>
             </Form.Group>
           </Row>
           <Row className="mb-3">
@@ -298,6 +307,7 @@ export default function SignInPage() {
             <Form.Group className="mb-3">
               <Form.Check
                 required
+                type="checkbox"
                 label="Agree to terms and conditions"
                 feedback="You must agree before submitting."
                 feedbackType="invalid"
