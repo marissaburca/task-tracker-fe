@@ -1,9 +1,20 @@
-import "../CSS/AccessPages.css";
+import "../SharedCSS/AccessPages.css";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import { Col, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setName,
+  setSurname,
+  setUsername,
+  setGender,
+  setAvatar,
+  setEmail,
+  setPassword,
+  signinUser,
+} from "../../Redux/Actions/signinActions";
 
 async function getAvatars() {
   try {
@@ -24,6 +35,7 @@ async function getAvatars() {
 
 export default function SignInPage() {
   const [avatars, setAvatars] = useState([]);
+
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
@@ -38,53 +50,39 @@ export default function SignInPage() {
   }, []);
 
   /* ***************** USER REGISTRATION  ****************** */
-  const [validated, setValidated] = useState(false);
-  const [register, setRegister] = useState({
-    name: "",
-    surname: "",
-    username: "",
-    gender: "",
-    avatarId: "",
-    email: "",
-    password: "",
-  });
-  const [regist, setRegist] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [validated, setValidated] = useState(false);
 
-  function registerUser() {
-    fetch("http://localhost:3001/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(register),
-    })
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        } else {
-          throw new Error("Error while registering user");
-        }
-      })
-      .then((data) => {
-        alert("Successfully registered");
-        setRegist(true);
-        console.log(data);
-        navigate("/");
-        return data;
-      })
-      .catch((Error) => {
-        return Error;
-      });
-  }
+  const name = useSelector((state) => state.signin.name);
+  const surname = useSelector((state) => state.signin.surname);
+  const username = useSelector((state) => state.signin.username);
+  const gender = useSelector((state) => state.signin.gender);
+  const avatarId = useSelector((state) => state.signin.avatarId);
+  const email = useSelector((state) => state.signin.email);
+  const password = useSelector((state) => state.signin.password);
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.preventDefault();
       event.stopPropagation();
+      alert("Error due to validation! Fill correctly the fields.");
+    } else {
+      setValidated(true);
+      dispatch(
+        signinUser({
+          name,
+          surname,
+          username,
+          gender,
+          avatarId,
+          email,
+          password,
+        })
+      );
+      navigate("/");
     }
-    setValidated(true);
   };
 
   /* *************** GENDER DROPDOWN ************* */
@@ -134,7 +132,7 @@ export default function SignInPage() {
   const [selectedAvatarId, setSelectedAvatarId] = useState(null);
 
   const handleAvatarClick = (id) => {
-    setRegister({ ...register, avatarId: id });
+    dispatch(setAvatar(id));
     setSelectedAvatarId(id); // UPDATE AVATAR ID WHEN SELECTED
   };
 
@@ -146,13 +144,8 @@ export default function SignInPage() {
         <h1 className="enter2 animate__animated animate__flip">TASK TRACKER</h1>
       </Col>
       <Col className="px-0 logFormExt2 col-12 ">
-        <Form
-          noValidate
-          validated={validated}
-          onSubmit={handleSubmit}
-          className="logFormInt2 text-start"
-        >
-          <Row className="mb-3">
+        <Form onSubmit={handleSubmit} className="logFormInt2 text-start">
+          <Row className="mb-3" validated={validated}>
             <Form.Group className="col-6 mb-3" controlId="validationCustom01">
               <Form.Label className="labels">FIRST NAME</Form.Label>
               <Form.Control
@@ -160,13 +153,7 @@ export default function SignInPage() {
                 style={inputStyle("fn")}
                 className="glow1"
                 required
-                onChange={(e) => {
-                  e.preventDefault();
-                  setRegister({
-                    ...register,
-                    name: e.target.value,
-                  });
-                }}
+                onChange={(e) => dispatch(setName(e.target.value))}
                 type="text"
                 placeholder="first name.."
               />
@@ -178,13 +165,7 @@ export default function SignInPage() {
                 onFocus={() => handleFocus("sn")}
                 style={inputStyle("sn")}
                 className="glow1"
-                onChange={(e) => {
-                  e.preventDefault();
-                  setRegister({
-                    ...register,
-                    surname: e.target.value,
-                  });
-                }}
+                onChange={(e) => dispatch(setSurname(e.target.value))}
                 required
                 type="text"
                 placeholder="last name..."
@@ -206,13 +187,7 @@ export default function SignInPage() {
                   aria-describedby="inputGroupPrepend"
                   required
                   className="glow1"
-                  onChange={(e) => {
-                    e.preventDefault();
-                    setRegister({
-                      ...register,
-                      username: e.target.value,
-                    });
-                  }}
+                  onChange={(e) => dispatch(setUsername(e.target.value))}
                 />
                 <Form.Control.Feedback>Nice one!</Form.Control.Feedback>
                 <Form.Control.Feedback type="invalid">
@@ -227,13 +202,7 @@ export default function SignInPage() {
                 style={inputStyle("gr")}
                 className="glow1"
                 aria-label="Gender select"
-                onChange={(e) => {
-                  e.preventDefault();
-                  setRegister({
-                    ...register,
-                    gender: e.target.value,
-                  });
-                }}
+                onChange={(e) => dispatch(setGender(e.target.value))}
               >
                 {genderOptions.map((gender) => (
                   <option key={gender} value={gender}>
@@ -248,13 +217,25 @@ export default function SignInPage() {
                 {Array.isArray(avatars) &&
                   avatars.map((avatar) => (
                     <div
-                    key={avatar.id}
-                    className={`avatar-option ${selectedAvatarId === avatar.id ? "avatar-img-clicked" : ""}`}
-                    onClick={() => handleAvatarClick(avatar.id)}
-                    style={{ cursor: "pointer", display: "inline-block", margin: "5px" }}
-                  >
-                    <img src={avatar.url} alt={`Avatar ${avatar.id}`} className="avatar-img" />
-                  </div>
+                      key={avatar.id}
+                      className={`avatar-option ${
+                        selectedAvatarId === avatar.id
+                          ? "avatar-img-clicked"
+                          : ""
+                      }`}
+                      onClick={() => handleAvatarClick(avatar.id)}
+                      style={{
+                        cursor: "pointer",
+                        display: "inline-block",
+                        margin: "5px",
+                      }}
+                    >
+                      <img
+                        src={avatar.url}
+                        alt={`Avatar ${avatar.id}`}
+                        className="avatar-img"
+                      />
+                    </div>
                   ))}
               </div>
             </Form.Group>
@@ -266,13 +247,7 @@ export default function SignInPage() {
                 onFocus={() => handleFocus("em")}
                 style={inputStyle("em")}
                 className="glow1"
-                onChange={(e) => {
-                  e.preventDefault();
-                  setRegister({
-                    ...register,
-                    email: e.target.value,
-                  });
-                }}
+                onChange={(e) => dispatch(setEmail(e.target.value))}
                 type="email"
                 placeholder="type email..."
                 required
@@ -290,13 +265,7 @@ export default function SignInPage() {
                 type="password"
                 placeholder="type password..."
                 required
-                onChange={(e) => {
-                  e.preventDefault();
-                  setRegister({
-                    ...register,
-                    password: e.target.value,
-                  });
-                }}
+                onChange={(e) => dispatch(setPassword(e.target.value))}
               />
               <Form.Control.Feedback type="invalid">
                 Please provide a password.
@@ -315,20 +284,11 @@ export default function SignInPage() {
             </Form.Group>
           </Col>
           <Col className="col-12 d-flex justify-content-between">
+            <button type="submit" className="glowing-btn-2 px-3 py-1 fw-bold">
+              SUBMIT
+            </button>
             <Link to="/">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  registerUser();
-                }}
-                type="submit"
-                className="glowing-btn-2 px-3 py-1 fw-bold"
-              >
-                SUBMIT
-              </button>
-            </Link>
-            <Link to="/">
-              <button className="glowing-btn-1 px-3 py-1 fw-bold" type="submit">
+              <button className="glowing-btn-1 px-3 py-1 fw-bold">
                 BACK TO LOGIN
               </button>
             </Link>

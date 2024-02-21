@@ -1,6 +1,6 @@
-import "../CSS/MyNavbar.css";
+import "./MyNavbar.css";
 import { Col, Row } from "react-bootstrap";
-import OffCanvas from "./OffCanvasComponent";
+import OffCanvas from "../OffCanvas/OffCanvasComponent";
 
 export default function MyNavbar() {
   return (

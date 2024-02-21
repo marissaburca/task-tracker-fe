@@ -1,15 +1,24 @@
-import "../CSS/AccessPages.css"
-import { Col, Row} from "react-bootstrap";
+import "../SharedCSS/AccessPages.css";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-
+import { useDispatch, useSelector} from 'react-redux';
+import { Row, Col} from "react-bootstrap";
+import { setEmail, setPassword, loginUser } from '../../Redux/Actions/authActions.js';
 
 export default function LogInPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const email = useSelector((state) => state.auth.email);
+  const password = useSelector((state) => state.auth.password);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser({ email, password }));
+    navigate("/dashboard");
+};
+
 
   /* ******* FOCUS ON INPUT FIELD AND OUT ********* */
   const [focusedInput, setFocusedInput] = useState(null);
@@ -32,52 +41,12 @@ export default function LogInPage() {
   const handleFocus = (inputId) => {
     setFocusedInput(inputId);
   };
-
+  
   const inputStyle = (inputId) => ({
     borderColor: focusedInput === inputId ? "rgb(219, 98, 55)" : "",
     boxShadow: focusedInput === inputId ? "0px 0px 20px 5px #ffaa00" : "",
   });
-  /* ************************************************ */
-  
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await getUser();
-      const token = localStorage.getItem("token");
-      console.log("Saved token:", token);
-      localStorage.setItem("email", email);
-      navigate("/dashboard");
-    } catch (error) {
-      console.error("Error during login request:", error);
-    }
-  };
-  async function getUser() {
-    try {
-      const response = await fetch("http://localhost:3001/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-
-      console.log("Token:", data.token);
-    } catch (error) {
-      alert("WRONG CREDENTIALS! Try again.");
-      throw new Error(error);
-    }
-  }
   return (
     <Row className="mx-auto w-75 ">
       <Col className="anim d-flex text-center col-12 mb-3 ">
@@ -96,7 +65,7 @@ export default function LogInPage() {
                   type="email"
                   placeholder="enter email..."
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => dispatch(setEmail(e.target.value))}
                   className="glow"
                 />
               </Form.Group>
@@ -111,7 +80,7 @@ export default function LogInPage() {
                   type="password"
                   placeholder="password..."
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => dispatch(setPassword(e.target.value))}
                   className="glow"
                 />
               </Form.Group>
@@ -127,7 +96,6 @@ export default function LogInPage() {
               <Link to="/register">
                 <button
                   className="px-3 py-1 glowing-btn-2 fw-bold "
-                  type="submit"
                 >
                   SIGN UP
                 </button>
@@ -138,4 +106,4 @@ export default function LogInPage() {
       </Col>
     </Row>
   );
-}
+  }

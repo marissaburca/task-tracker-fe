@@ -1,4 +1,4 @@
-import "../CSS/MyCalendar.css";
+import "./MyCalendar.css";
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 

@@ -4,12 +4,12 @@ import "./App.css";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import LogInPage from "./Components/Pages/LogInPage";
-import PillButton from "./Components/Buttons/PillButton";
+import LogInPage from "./Components/LogInPage/LogInPage";
+import PillButton from "./Components/StyledComponents/PillButton";
 import { Row, Col } from "react-bootstrap";
-import SignInPage from "./Components/Pages/SignInPage";
-import MyFooter from "./Components/Layout/MyFooter";
-import Dashboard from "./Components/Pages/Dashboard";
+import SignInPage from "./Components/SignInPage/SignInPage";
+import MyFooter from "./Components/Footer/MyFooter";
+import Dashboard from "./Components/Dashboard/Dashboard";
 
 function App() {
   const [theme, setTheme] = useState("light");

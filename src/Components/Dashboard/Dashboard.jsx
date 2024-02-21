@@ -1,9 +1,9 @@
 import { Col, Row } from "react-bootstrap";
-import MyCalendar from "../Layout/MyCalendar";
-import MyNavbar from "../Layout/MyNavbar";
+import MyCalendar from "../Calendar/MyCalendar.jsx";
+import MyNavbar from "../Navbar/MyNavbar.jsx";
 import { MdAddTask } from "react-icons/md";
 import React, { useState } from "react";
-import MyModal from "../Layout/MyModal";
+import MyModal from "../Modal/MyModal.jsx";
 
 const token = localStorage.getItem("token");
 
