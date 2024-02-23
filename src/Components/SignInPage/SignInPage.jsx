@@ -89,13 +89,13 @@ export default function SignInPage() {
   const Gender = {
     MALE: "MALE",
     FEMALE: "FEMALE",
-    NON_BINARY: "NON_BINARY",
+    NON_BINARY: "NON BINARY",
     GENDERQUEER: "GENDERQUEER",
     GENDERFLUID: "GENDERFLUID",
     AGENDER: "AGENDER",
-    TWO_SPIRIT: "TWO_SPIRIT",
+    TWO_SPIRIT: "TWO SPIRIT",
     OTHER: "OTHER",
-    PREFER_NOT_TO_SAY: "PREFER_NOT_TO_SAY",
+    PREFER_NOT_TO_SAY: "PREFER NOT TO SAY",
   };
 
   const genderOptions = Object.values(Gender);

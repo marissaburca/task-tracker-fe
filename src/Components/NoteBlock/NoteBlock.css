@@ -1,0 +1,25 @@
+.note-block {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-y: scroll;
+    height: 300px;
+  }
+  
+  .note-block h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .note-block ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .note-block li {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  

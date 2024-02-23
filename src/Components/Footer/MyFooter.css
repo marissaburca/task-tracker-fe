@@ -1,10 +1,6 @@
 .footer {
     align-items: center;
-  
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    padding-bottom:20px;
     background-color: transparent;
   }
   

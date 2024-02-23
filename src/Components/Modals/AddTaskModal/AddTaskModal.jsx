@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { handleAddTask } from "../../../Redux/Actions/taskActions";
 
-export default function MyModal({ show, handleClose, handleAddTask }) {
+export default function MyModal({ show, handleClose }) {
+  const dispatch = useDispatch();
+
   const [task, setTask] = useState({
     title: "",
     description: "",
     date: "",
-    time: ""  
+    time: "",
   });
 
   const handleChange = (e) => {
@@ -14,11 +18,9 @@ export default function MyModal({ show, handleClose, handleAddTask }) {
   };
 
   const submitTask = () => {
-    console.log(task.date, task.title, task.description, task.time);
-    handleAddTask(task);
+    dispatch(handleAddTask(task));
     handleClose();
   };
-  console.log(task.date, task.title, task.description);
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

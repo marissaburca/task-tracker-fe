@@ -27,14 +27,13 @@ export const loginUser = (credentials) => async (dispatch) => {
     });
 
     if (!response.ok) {
-      alert("Error in fetch! Try again.");
+      alert("There's something wrong with your credentials. Try Again!");
       throw new Error("Login failed");
     }
     const data = await response.json();
     localStorage.setItem("token", data.token);
     dispatch({ type: "SET_TOKEN", payload: data.token });
   } catch (error) {
-    alert("SOME ERROR OCCURRED! Try again.");
     console.log(error)
   }
 };

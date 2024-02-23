@@ -9,15 +9,23 @@ import { setEmail, setPassword, loginUser } from '../../Redux/Actions/authAction
 export default function LogInPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
 
   const email = useSelector((state) => state.auth.email);
   const password = useSelector((state) => state.auth.password);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const email = e.target.formBasicEmail.value;
+    const password = e.target.formBasicPassword.value;
     dispatch(loginUser({ email, password }));
-    navigate("/dashboard");
 };
+
+useEffect(() => {
+    if (token) { 
+        navigate("/dashboard");
+    }
+}, [token, navigate]); 
 
 
   /* ******* FOCUS ON INPUT FIELD AND OUT ********* */
