@@ -32,8 +32,9 @@ export const loginUser = (credentials) => async (dispatch) => {
     }
     const data = await response.json();
     localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.userId);
     dispatch({ type: "SET_TOKEN", payload: data.token });
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 };

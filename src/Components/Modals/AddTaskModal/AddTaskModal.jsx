@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleAddTask } from "../../../Redux/Actions/taskActions";
 
 export default function MyModal({ show, handleClose }) {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
 
   const [task, setTask] = useState({
     title: "",
@@ -18,7 +19,7 @@ export default function MyModal({ show, handleClose }) {
   };
 
   const submitTask = () => {
-    dispatch(handleAddTask(task));
+    dispatch(handleAddTask(task, token));
     handleClose();
   };
   return (

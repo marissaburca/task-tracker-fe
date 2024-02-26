@@ -6,7 +6,7 @@ import {
   SET_AVATAR,
   SET_EMAIL,
   SET_PASSWORD,
-} from "../Actions/signinActions.js";
+} from "../Actions/userActions.js";
 
 const initialState = {
   name: "",
@@ -18,8 +18,9 @@ const initialState = {
   password: "",
 };
 
-const signinReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
   switch (action.type) {
+   
     case SET_NAME:
       return {
         ...state,
@@ -55,10 +56,9 @@ const signinReducer = (state = initialState, action) => {
         ...state,
         password: action.payload,
       };
-
     default:
       return state;
   }
 };
 
-export default signinReducer;
+export default userReducer;

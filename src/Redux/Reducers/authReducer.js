@@ -3,7 +3,7 @@ import { SET_EMAIL, SET_PASSWORD, SET_TOKEN } from "../Actions/authActions.js";
 const initialState = {
   email: "",
   password: "",
-  token: "",
+  token: localStorage.getItem("token")|| null,
 };
 
 function authReducer(state = initialState, action) {

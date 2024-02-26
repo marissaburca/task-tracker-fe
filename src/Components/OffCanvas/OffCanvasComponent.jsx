@@ -1,9 +1,11 @@
 import { Col, Row, Offcanvas, Button } from "react-bootstrap";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { RiAccountCircleFill } from "react-icons/ri";
+import { RiAccountCircleFill, RiLockPasswordFill } from "react-icons/ri";
 import { IoNotifications, IoHome } from "react-icons/io5";
 import { Link } from "react-router-dom";
+
+
 
 export default function OffCanvas() {
   const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -12,12 +14,10 @@ export default function OffCanvas() {
     setShowOffcanvas(!showOffcanvas);
   };
 
-  const logOutUser = (e) => {
-    e.preventDefault();
-    const email = localStorage.getItem("email");
-    const pswd = localStorage.getItem("pswd");
-    localStorage.removeItem("email", email);
-    localStorage.removeItem("pswd", pswd);
+  const logOutUser = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    window.location.assign("/")
   };
 
   return (
@@ -38,10 +38,13 @@ export default function OffCanvas() {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Row className="p-0">
-          <Col className="col-12 mx-4 border-bottom border-2 pb-3">
-              <Link to="/dashboard" className="text-decoration-none text-body fs-5">
+            <Col className="col-12 mx-4 border-bottom border-2 pb-3">
+              <Link
+                to="/dashboard"
+                className="text-decoration-none text-body fs-5"
+              >
                 <IoHome className="me-3 mb-1" />
-                Home
+                Dashboard
               </Link>
             </Col>
             <Col className="col-12 mx-4 border-bottom border-2 py-3">
@@ -51,24 +54,28 @@ export default function OffCanvas() {
               </Link>
             </Col>
             <Col className="col-12 mx-4 border-bottom border-2 py-3">
-              <Link to="/" className="text-decoration-none text-body fs-5">
+              <Link to="/account" className="text-decoration-none text-body fs-5">
                 <RiAccountCircleFill className="me-3 mb-1" />
-                Account
+                Your Account
+              </Link>
+            </Col>
+            <Col className="col-12 mx-4 border-bottom border-2 py-3">
+              <Link to="/password" className="text-decoration-none text-body fs-5">
+                <RiLockPasswordFill className="me-3 mb-1" />
+                Edit Password
               </Link>
             </Col>
             <Col className="col-12 text-end mt-3">
-              <Link to="/">
+
                 <Button
                   className="px-3 py-1 "
-                  type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
                     logOutUser();
                   }}
                 >
                   LOG OUT
                 </Button>
-              </Link>
+
             </Col>
           </Row>
         </Offcanvas.Body>

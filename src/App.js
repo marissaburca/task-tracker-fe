@@ -10,6 +10,9 @@ import { Row, Col } from "react-bootstrap";
 import SignInPage from "./Components/SignInPage/SignInPage";
 import MyFooter from "./Components/Footer/MyFooter";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import AccountPage from "./Components/AccountPage/AccountPage";
+import PasswordPage from "./Components/PasswordPage/PasswordPage";
+
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -34,6 +37,8 @@ function App() {
               <Route path="/" element={<LogInPage />} />
               <Route path="/register" element={<SignInPage />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/account" element={<AccountPage />} />
+              <Route path="/password" element={<PasswordPage />} />
             </Routes>
         
         </Col>

@@ -14,24 +14,8 @@ import {
   setEmail,
   setPassword,
   signinUser,
-} from "../../Redux/Actions/signinActions";
-
-async function getAvatars() {
-  try {
-    const response = await fetch("http://localhost:3001/avatar");
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data);
-      return data;
-    } else {
-      throw new Error(`Request failed: ${response.status}`);
-    }
-  } catch (error) {
-    //HANDLES NETWORK ERRORS OR OTHERS
-    console.error("Error while fetching avatars: ", error.message);
-    throw error;
-  }
-}
+} from "../../Redux/Actions/userActions";
+import getAvatars from "../StructuralApi/AvatarApi";
 
 export default function SignInPage() {
   const [avatars, setAvatars] = useState([]);
@@ -52,15 +36,14 @@ export default function SignInPage() {
   /* ***************** USER REGISTRATION  ****************** */
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [validated, setValidated] = useState(false);
 
-  const name = useSelector((state) => state.signin.name);
-  const surname = useSelector((state) => state.signin.surname);
-  const username = useSelector((state) => state.signin.username);
-  const gender = useSelector((state) => state.signin.gender);
-  const avatarId = useSelector((state) => state.signin.avatarId);
-  const email = useSelector((state) => state.signin.email);
-  const password = useSelector((state) => state.signin.password);
+  const name = useSelector((state) => state.user.name);
+  const surname = useSelector((state) => state.user.surname);
+  const username = useSelector((state) => state.user.username);
+  const gender = useSelector((state) => state.user.gender);
+  const avatarId = useSelector((state) => state.user.avatarId);
+  const email = useSelector((state) => state.user.email);
+  const password = useSelector((state) => state.user.password);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -69,7 +52,6 @@ export default function SignInPage() {
       event.stopPropagation();
       alert("Error due to validation! Fill correctly the fields.");
     } else {
-      setValidated(true);
       dispatch(
         signinUser({
           name,
@@ -145,9 +127,9 @@ export default function SignInPage() {
       </Col>
       <Col className="px-0 logFormExt2 col-12 ">
         <Form onSubmit={handleSubmit} className="logFormInt2 text-start">
-          <Row className="mb-3" validated={validated}>
+          <Row className="mb-3">
             <Form.Group className="col-6 mb-3" controlId="validationCustom01">
-              <Form.Label className="labels">FIRST NAME</Form.Label>
+              <Form.Label className="labels">NAME</Form.Label>
               <Form.Control
                 onFocus={() => handleFocus("fn")}
                 style={inputStyle("fn")}
@@ -155,12 +137,12 @@ export default function SignInPage() {
                 required
                 onChange={(e) => dispatch(setName(e.target.value))}
                 type="text"
-                placeholder="first name.."
+                placeholder="name.."
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="col-6" controlId="validationCustom02">
-              <Form.Label className="labels">LAST NAME</Form.Label>
+              <Form.Label className="labels">SURNAME</Form.Label>
               <Form.Control
                 onFocus={() => handleFocus("sn")}
                 style={inputStyle("sn")}
@@ -168,7 +150,7 @@ export default function SignInPage() {
                 onChange={(e) => dispatch(setSurname(e.target.value))}
                 required
                 type="text"
-                placeholder="last name..."
+                placeholder="surname..."
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>

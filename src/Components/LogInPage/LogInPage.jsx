@@ -2,31 +2,33 @@ import "../SharedCSS/AccessPages.css";
 import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector} from 'react-redux';
-import { Row, Col} from "react-bootstrap";
-import { setEmail, setPassword, loginUser } from '../../Redux/Actions/authActions.js';
+import { useDispatch, useSelector } from "react-redux";
+import { Row, Col } from "react-bootstrap";
+import {
+  setEmail,
+  setPassword,
+  loginUser,
+} from "../../Redux/Actions/authActions.js";
 
 export default function LogInPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
 
-  const email = useSelector((state) => state.auth.email);
-  const password = useSelector((state) => state.auth.password);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const email = e.target.formBasicEmail.value;
     const password = e.target.formBasicPassword.value;
+    dispatch(setEmail(email));
+    dispatch(setPassword(password));
     dispatch(loginUser({ email, password }));
-};
+  };
 
-useEffect(() => {
-    if (token) { 
-        navigate("/dashboard");
+  useEffect(() => {
+    if (token) {
+      navigate("/dashboard");
     }
-}, [token, navigate]); 
-
+  }, [token, navigate]);
 
   /* ******* FOCUS ON INPUT FIELD AND OUT ********* */
   const [focusedInput, setFocusedInput] = useState(null);
@@ -49,7 +51,7 @@ useEffect(() => {
   const handleFocus = (inputId) => {
     setFocusedInput(inputId);
   };
-  
+
   const inputStyle = (inputId) => ({
     borderColor: focusedInput === inputId ? "rgb(219, 98, 55)" : "",
     boxShadow: focusedInput === inputId ? "0px 0px 20px 5px #ffaa00" : "",
@@ -58,7 +60,9 @@ useEffect(() => {
   return (
     <Row className="mx-auto w-75 ">
       <Col className="anim d-flex text-center col-12 mb-3 ">
-        <h1 className="enter  animate__animated animate__flip ">TASK TRACKER</h1>
+        <h1 className="enter  animate__animated animate__flip ">
+          TASK TRACKER
+        </h1>
       </Col>
       <Col className="px-0 logFormExt col-12">
         <Form onSubmit={handleSubmit} className="logFormInt">
@@ -72,8 +76,6 @@ useEffect(() => {
                   required
                   type="email"
                   placeholder="enter email..."
-                  value={email}
-                  onChange={(e) => dispatch(setEmail(e.target.value))}
                   className="glow"
                 />
               </Form.Group>
@@ -87,8 +89,6 @@ useEffect(() => {
                   required
                   type="password"
                   placeholder="password..."
-                  value={password}
-                  onChange={(e) => dispatch(setPassword(e.target.value))}
                   className="glow"
                 />
               </Form.Group>
@@ -102,9 +102,7 @@ useEffect(() => {
               <div className="register"> Don't you have an account yet?</div>
 
               <Link to="/register">
-                <button
-                  className="px-3 py-1 glowing-btn-2 fw-bold "
-                >
+                <button className="px-3 py-1 glowing-btn-2 fw-bold ">
                   SIGN UP
                 </button>
               </Link>
@@ -114,4 +112,4 @@ useEffect(() => {
       </Col>
     </Row>
   );
-  }
+}

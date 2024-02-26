@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { editTaskSuccess } from '../../../Redux/Actions/taskActions';
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { editTaskSuccess } from "../../../Redux/Actions/taskActions";
 
 const EditTaskModal = ({ show, handleClose, task }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [time, setTime] = useState('');
-  const [date, setDate] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     if (task) {
       setTitle(task.title);
       setDescription(task.description);
-      setTime(task.time.substr(0, 5)); 
+      setTime(task.time.substr(0, 5));
       setDate(task.date);
     }
   }, [task]);
 
   const handleSave = () => {
     const updatedTask = { ...task, title, description, time, date };
-    dispatch(editTaskSuccess(updatedTask)); 
+    dispatch(editTaskSuccess(updatedTask));
     handleClose();
   };
 
@@ -52,14 +53,6 @@ const EditTaskModal = ({ show, handleClose, task }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>Time</Form.Label>
-            <Form.Control
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
             <Form.Label>Date</Form.Label>
             <Form.Control
               type="date"
@@ -67,6 +60,15 @@ const EditTaskModal = ({ show, handleClose, task }) => {
               onChange={(e) => setDate(e.target.value)}
             />
           </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Time</Form.Label>
+            <Form.Control
+              type="time"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+            />
+          </Form.Group>
+       
         </Form>
       </Modal.Body>
       <Modal.Footer>

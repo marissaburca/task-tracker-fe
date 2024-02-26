@@ -8,7 +8,6 @@ import {
   EDIT_TASK_BEGIN,
   EDIT_TASK_SUCCESS,
   EDIT_TASK_FAILURE,
-  CANCEL_EDIT_TASK,
 } from "../Actions/taskActions";
 
 const initialState = {
@@ -74,11 +73,7 @@ export function taskReducer(state = initialState, action) {
         error: action.payload,
         editingTaskId: null,
       };
-    case CANCEL_EDIT_TASK:
-      return {
-        ...state,
-        editingTaskId: null,
-      };
+  
     default:
       return state;
   }

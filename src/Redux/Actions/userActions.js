@@ -52,7 +52,7 @@ export const setPassword = (password) => {
   };
 };
 
-export const signinUser = (userDetails) => async (dispatch) => {
+export const signinUser = async (userDetails) => {
   try {
     const response = await fetch("http://localhost:3001/auth/register", {
       method: "POST",
@@ -62,13 +62,14 @@ export const signinUser = (userDetails) => async (dispatch) => {
       body: JSON.stringify(userDetails),
     });
     if (!response.ok) {
-      alert("Error in fetch! Try again.");
+      alert("Error during Signin! Try again.");
       throw new Error("Registration failed");
     }
     const data = await response.json();
-    console.log(data);
+    localStorage.setItem("userId", data.id.toString());
   } catch (error) {
-    alert("SOME ERROR OCCURRED! Try again.");
-    console.log(error);
+    console.log(error.message);
   }
 };
+
+

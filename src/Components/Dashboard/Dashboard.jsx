@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Form } from "react-bootstrap";
-import MyCalendar from "../Calendar/MyCalendar.jsx";
+import MyCalendar from "../Calendar/MyCalendar";
 import MyNavbar from "../Navbar/MyNavbar.jsx";
 import AddTaskModal from "../Modals/AddTaskModal/AddTaskModal.jsx";
-import EditTaskModal from "../Modals/EditTaskModal/EditTaskModal";
-import NoteBlock from "../NoteBlock/NoteBlock";
+import EditTaskModal from "../Modals/EditTaskModal/EditTaskModal.jsx";
+import NoteBlock from "../NoteBlock/NoteBlock.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import {
   handleGetTasks,
@@ -18,10 +18,11 @@ import { MdDeleteOutline } from "react-icons/md";
 export default function Dashboard() {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.items);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
-    dispatch(handleGetTasks());
-  }, [dispatch]);
+    if (token) dispatch(handleGetTasks(token));
+  }, [dispatch, token]);
 
   // STATE AND LOGIC FOR ADDING TASK MODAL
   const [showAddModal, setShowAddModal] = useState(false);
@@ -40,20 +41,22 @@ export default function Dashboard() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const handleDateChange = (date) => setSelectedDate(date);
 
-  const filteredTasks = tasks.filter(
-    (task) =>
-      new Date(task.date).toDateString() ===
-      new Date(selectedDate).toDateString()
-  );
+  const filteredTasks = Array.isArray(tasks)
+    ? tasks.filter(
+        (task) =>
+          new Date(task.date).toDateString() ===
+          new Date(selectedDate).toDateString()
+      )
+    : [];
 
   // FUNCTION TO CHANGE TASK STATUS
   const handleStatusChange = (id, newStatus) => {
-    dispatch(updateTaskStatus(id, newStatus));
+    dispatch(updateTaskStatus(id, newStatus, token));
   };
 
   // FUNCTION FOR TASK DELETION
   const handleDelete = (id) => {
-    dispatch(handleDeleteTask(id));
+    dispatch(handleDeleteTask(id, token));
   };
 
   // FUNCTION TO OBTAIN COLOR BASED ON STATUS
@@ -110,28 +113,21 @@ export default function Dashboard() {
                     <Col className="col-2">Title</Col>
                     <Col className="col-3">Description</Col>
                     <Col className="col-1">Time</Col>
-                    <Col className="col-1">Status</Col>
+
                     <Col className="col-2">In progress</Col>
                     <Col className="col-1">Done</Col>
+                    <Col className="col-2">Edit</Col>
                     <Col className="col-1">Delete</Col>
-                    <Col className="col-1">Edit</Col>
                   </Row>
                   {filteredTasks.map((task) => (
-                    <Row key={task.id} className="text-center">
+                    <Row
+                      key={task.id}
+                      className="text-center"
+                      style={{ backgroundColor: getStatusColor(task.status) }}
+                    >
                       <Col className="col-2">{task.title}</Col>
                       <Col className="col-3">{task.description}</Col>
                       <Col className="col-1">{task.time.substr(0, 5)}</Col>
-                      <Col className="col-1">
-                        <span
-                          style={{
-                            height: "15px",
-                            width: "15px",
-                            backgroundColor: getStatusColor(task.status),
-                            borderRadius: "50%",
-                            display: "inline-block",
-                          }}
-                        ></span>
-                      </Col>
 
                       <Col className="col-2">
                         <Form.Check
@@ -149,21 +145,20 @@ export default function Dashboard() {
                           onChange={() => handleStatusChange(task.id, "DONE")}
                         />
                       </Col>
-
+                      <Col className="col-2">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => handleShowEditModal(task)}
+                        >
+                          <FaRegEdit />
+                        </button>
+                      </Col>
                       <Col className="col-1">
                         <button
                           className="btn btn-danger"
                           onClick={() => handleDelete(task.id)}
                         >
                           <MdDeleteOutline />
-                        </button>
-                      </Col>
-                      <Col className="col-1">
-                        <button
-                          className="btn btn-primary"
-                          onClick={() => handleShowEditModal(task)}
-                        >
-                          <FaRegEdit />
                         </button>
                       </Col>
                     </Row>

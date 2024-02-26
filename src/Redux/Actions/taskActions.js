@@ -9,8 +9,6 @@ export const EDIT_TASK_SUCCESS = 'EDIT_TASK_SUCCESS';
 export const EDIT_TASK_FAILURE = 'EDIT_TASK_FAILURE';
 export const CANCEL_EDIT_TASK = 'CANCEL_EDIT_TASK';
 
-const token = localStorage.getItem("token");
-
 export const addTasks = (tasks) => ({
   type: ADD_TASKS,
   payload: tasks,
@@ -56,11 +54,8 @@ export const editTaskFailure = (error) => ({
   payload: error,
 });
 
-export const cancelEditTask = () => ({
-  type: CANCEL_EDIT_TASK,
-});
 
-export const handleAddTask = (task) => async (dispatch) => {
+export const handleAddTask = (task, token) => async (dispatch) => {
   
     try {
       const response = await fetch("http://localhost:3001/task", {
@@ -76,14 +71,16 @@ export const handleAddTask = (task) => async (dispatch) => {
         throw new Error("Something went wrong, check the input fields");
       }
       const addedTask = await response.json(); 
-      dispatch(handleGetTasks());    
+      dispatch(addTasksSuccess(addedTask));
+      dispatch(handleGetTasks(token));    
     } catch (error) {
       dispatch(addTasksFailure(error.message));
     }
   };
 
 
-export const handleGetTasks = () => async (dispatch) => {
+export const handleGetTasks = (token) => async (dispatch) => {
+ 
   try {
     const response = await fetch("http://localhost:3001/task", {
       method: "GET",
@@ -96,14 +93,13 @@ export const handleGetTasks = () => async (dispatch) => {
     if (!response.ok) {
       throw new Error("Something went wrong during fetch request.");
     }
-    const tasks = await response.json();
-    
+    const tasks = await response.json(); 
     dispatch(addTasksSuccess(tasks));
   } catch (error) {
     dispatch(addTasksFailure("Unable to get tasks. " + error.message));
   }
 };
-export const handleEditTask = (task,id) => async (dispatch) => {
+export const handleEditTask = (task,id, token) => async (dispatch) => {
   
   try {
     const response = await fetch(`http://localhost:3001/task/${id}`, {
@@ -120,12 +116,12 @@ export const handleEditTask = (task,id) => async (dispatch) => {
     }
     const data = await response.json(); 
     dispatch(editTaskSuccess(task));
-    dispatch(handleGetTasks());    
+    dispatch(handleGetTasks(token));    
   } catch (error) {
     dispatch(editTaskFailure("Error while updating. " + error.message));
   }
 };
-export const handleDeleteTask = (id) => async (dispatch) => {
+export const handleDeleteTask = (id, token) => async (dispatch) => {
   console.log(id)
   try {
     const response = await fetch(`http://localhost:3001/task/${id}`, {
@@ -139,15 +135,14 @@ export const handleDeleteTask = (id) => async (dispatch) => {
     if (!response.ok) {
       throw new Error("Something went wrong while deleting task");
     }
-  
     dispatch(deleteTaskSuccess(id));
-    dispatch(handleGetTasks());    
+    dispatch(handleGetTasks(token));    
   } catch (error) {
     dispatch(deleteTaskFailure("Error during delation. " + error.message));
   }
 };
 
-export const updateTaskStatus = (id, newStatus) => async (dispatch, getState) => {
+export const updateTaskStatus = (id, newStatus, token) => async (dispatch, getState) => {
   console.log(id);
   console.log(newStatus)
   try {

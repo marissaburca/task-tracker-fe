@@ -1,12 +1,13 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import authReducer from "../Reducers/authReducer";
 import { taskReducer } from "../Reducers/taskReducer";
-import signinReducer from "../Reducers/signinReducer";
+import userReducer from "../Reducers/userReducer";
 
 const allReducers = combineReducers({
   auth: authReducer,
-  signin: signinReducer,
+  user:userReducer,
   tasks: taskReducer,
+  
 });
 
 const store = configureStore({
