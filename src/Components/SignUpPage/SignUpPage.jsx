@@ -13,11 +13,11 @@ import {
   setAvatar,
   setEmail,
   setPassword,
-  signinUser,
+  signupUser,
 } from "../../Redux/Actions/userActions";
 import getAvatars from "../StructuralApi/AvatarApi";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   const [avatars, setAvatars] = useState([]);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function SignInPage() {
       alert("Error due to validation! Fill correctly the fields.");
     } else {
       dispatch(
-        signinUser({
+        signupUser({
           name,
           surname,
           username,
@@ -71,13 +71,13 @@ export default function SignInPage() {
   const Gender = {
     MALE: "MALE",
     FEMALE: "FEMALE",
-    NON_BINARY: "NON BINARY",
+    NON_BINARY: "NON_BINARY",
     GENDERQUEER: "GENDERQUEER",
     GENDERFLUID: "GENDERFLUID",
     AGENDER: "AGENDER",
-    TWO_SPIRIT: "TWO SPIRIT",
+    TWO_SPIRIT: "TWO_SPIRIT",
     OTHER: "OTHER",
-    PREFER_NOT_TO_SAY: "PREFER NOT TO SAY",
+    PREFER_NOT_TO_SAY: "PREFER_NOT_TO_SAY",
   };
 
   const genderOptions = Object.values(Gender);
@@ -121,14 +121,14 @@ export default function SignInPage() {
   /* ************************************************ */
 
   return (
-    <Row className="mx-auto w-75 ">
-      <Col className="anim2 d-flex text-center col-12 mb-3 ">
+    <Row className="mx-auto w-75 mt-5 ">
+      <Col xs={12} className="anim2 d-flex text-center mb-3 ">
         <h1 className="enter2 animate__animated animate__flip">TASK TRACKER</h1>
       </Col>
-      <Col className="px-0 logFormExt2 col-12 ">
+      <Col xs={12} className="px-0 ">
         <Form onSubmit={handleSubmit} className="logFormInt2 text-start">
           <Row className="mb-3">
-            <Form.Group className="col-6 mb-3" controlId="validationCustom01">
+            <Form.Group className="mb-3 col-12" controlId="validationCustom01">
               <Form.Label className="labels">NAME</Form.Label>
               <Form.Control
                 onFocus={() => handleFocus("fn")}
@@ -141,7 +141,7 @@ export default function SignInPage() {
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="col-6" controlId="validationCustom02">
+            <Form.Group  controlId="validationCustom02" className="col-12">
               <Form.Label className="labels">SURNAME</Form.Label>
               <Form.Control
                 onFocus={() => handleFocus("sn")}
@@ -154,8 +154,8 @@ export default function SignInPage() {
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group
-              className="col-12 mb-2"
+            <Form.Group 
+              className="mb-2 col-9"
               controlId="validationCustomUsername"
             >
               <Form.Label className="labels">USERNAME</Form.Label>
@@ -168,7 +168,7 @@ export default function SignInPage() {
                   placeholder="username.."
                   aria-describedby="inputGroupPrepend"
                   required
-                  className="glow1"
+                  className="glow1 rounded-end"
                   onChange={(e) => dispatch(setUsername(e.target.value))}
                 />
                 <Form.Control.Feedback>Nice one!</Form.Control.Feedback>
@@ -177,7 +177,7 @@ export default function SignInPage() {
                 </Form.Control.Feedback>
               </InputGroup>
             </Form.Group>
-            <Form.Group controlId="genderSelect" className="col-12 mb-2 w-75">
+            <Form.Group controlId="genderSelect" className="col-9 mb-2">
               <Form.Label className="labels">GENDER</Form.Label>
               <Form.Select
                 onFocus={() => handleFocus("gr")}
@@ -193,7 +193,7 @@ export default function SignInPage() {
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group controlId="avatarSelect" className="col-11">
+            <Form.Group controlId="avatarSelect" className="col-12">
               <Form.Label className="labels">CHOOSE AN AVATAR</Form.Label>
               <div className="avatar-selection-container">
                 {Array.isArray(avatars) &&
@@ -223,7 +223,7 @@ export default function SignInPage() {
             </Form.Group>
           </Row>
           <Row className="mb-3">
-            <Form.Group className="col-12 mb-3" controlId="validationCustom03">
+            <Form.Group xs={12} className="mb-3" controlId="validationCustom03">
               <Form.Label className="labels">EMAIL</Form.Label>
               <Form.Control
                 onFocus={() => handleFocus("em")}
@@ -238,7 +238,7 @@ export default function SignInPage() {
                 Please provide a valid email.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="col-12 mb-3" controlId="validationCustom04">
+            <Form.Group xs={12} className="mb-3" controlId="validationCustom04">
               <Form.Label className="labels">PASSWORD</Form.Label>
               <Form.Control
                 onFocus={() => handleFocus("pw")}
@@ -254,24 +254,27 @@ export default function SignInPage() {
               </Form.Control.Feedback>
             </Form.Group>
           </Row>
-          <Col className="col-12 d-flex test-start">
-            <Form.Group className="mb-3">
-              <Form.Check
-                required
-                type="checkbox"
-                label="Agree to terms and conditions"
-                feedback="You must agree before submitting."
-                feedbackType="invalid"
-              />
-            </Form.Group>
-          </Col>
-          <Col className="col-12 d-flex justify-content-between">
+          <Form.Group className="mb-3">
+            <Form.Check
+              required
+              type="checkbox"
+              label={
+                <>
+                  Agree to{" "}
+                  <Link to="/terms" className="text-white">Terms and conditions</Link>
+                </>
+              }
+              feedback="You must agree before submitting."
+              feedbackType="invalid"
+            />
+          </Form.Group>
+          <Col xs={12}  className="d-flex justify-content-between">
             <button type="submit" className="glowing-btn-2 px-3 py-1 fw-bold">
               SUBMIT
             </button>
             <Link to="/">
               <button className="glowing-btn-1 px-3 py-1 fw-bold">
-                BACK TO LOGIN
+                BACK TO LOG IN
               </button>
             </Link>
           </Col>

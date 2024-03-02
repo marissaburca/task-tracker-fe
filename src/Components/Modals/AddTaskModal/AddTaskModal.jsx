@@ -12,6 +12,7 @@ export default function MyModal({ show, handleClose }) {
     description: "",
     date: "",
     time: "",
+    priority: "",
   });
 
   const handleChange = (e) => {
@@ -65,6 +66,19 @@ export default function MyModal({ show, handleClose }) {
               value={task.time}
               onChange={handleChange}
             />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Priority</Form.Label>
+            <Form.Select
+              name="priority"
+              value={task.priority}
+              onChange={handleChange}
+            >
+              <option value="">Select Priority</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </Form.Select>
           </Form.Group>
         </Form>
       </Modal.Body>

@@ -1,7 +1,9 @@
+import "./Dashboard.css";
 import React, { useState, useEffect } from "react";
 import { Col, Row, Form } from "react-bootstrap";
 import MyCalendar from "../Calendar/MyCalendar";
 import MyNavbar from "../Navbar/MyNavbar.jsx";
+import MyFooter from "../Footer/MyFooter.jsx";
 import AddTaskModal from "../Modals/AddTaskModal/AddTaskModal.jsx";
 import EditTaskModal from "../Modals/EditTaskModal/EditTaskModal.jsx";
 import NoteBlock from "../NoteBlock/NoteBlock.jsx";
@@ -12,10 +14,13 @@ import {
   handleDeleteTask,
 } from "../../Redux/Actions/taskActions.js";
 import { MdAddTask } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
+import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import { useTheme } from "../../ThemeContext/ThemeProvider";
 
 export default function Dashboard() {
+  const { theme } = useTheme();
+  const themeClass = theme === 'light' ? 'light' : 'dark';
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.items);
   const token = useSelector((state) => state.auth.token);
@@ -49,6 +54,12 @@ export default function Dashboard() {
       )
     : [];
 
+  // SORT TASK BY PRIORITY
+  const sortedTasks = filteredTasks.sort((a, b) => {
+    const priorityOrder = { HIGH: 1, MEDIUM: 2, LOW: 3 };
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
+
   // FUNCTION TO CHANGE TASK STATUS
   const handleStatusChange = (id, newStatus) => {
     dispatch(updateTaskStatus(id, newStatus, token));
@@ -63,42 +74,43 @@ export default function Dashboard() {
   const getStatusColor = (status) => {
     switch (status) {
       case "CREATED":
-        return "red";
+        return "linear-gradient(to left, #ff2a00 0px, #ff2a00 10px, transparent 900px)";
       case "IN_PROGRESS":
-        return "yellow";
+        return "linear-gradient(to left, rgb(242,228,110) 0px, rgb(242,228,110) 30px, transparent 900px)";
       case "DONE":
-        return "green";
+        return "linear-gradient(to left, rgb(127, 188, 21) 0px, rgb(127, 188, 21) 100px, transparent 900px)";
       default:
-        return "red";
+        return "linear-gradient(to left, #ff2a00 0px, #ff2a00 10px, transparent 900px)";
     }
   };
 
   return (
-    <>
+    <div className="dashOrder">
       <Row className="ms-0">
         <MyNavbar />
       </Row>
-      <Row className="mx-0">
-        <Col className="col-xs-12 col-lg-9 mt-3 mx-0">
-          <NoteBlock />
-        </Col>
-        <Col className="col-xs-12 col-lg-3 mt-3 mx-auto">
+      <Row className="mx-0 dashBody">
+        {" "}
+        <Col xs={12} md={5} className="mt-2 mx-0 dashCalendar">
           <MyCalendar selectedDate={handleDateChange} />
         </Col>
-        <Col className="col-12">
-          <Row className="pt-2 border border-3 mt-3 mx-auto">
-            <Col className="col-12">
-              <Row className="shadowHeader justify-content-center">
-                <Col className="col-md-9 col-lg-10 selectedDate text-center text-body">
+        <Col xs={12} md={7} className="mt-2 mx-0 dashNotes">
+          <NoteBlock />
+        </Col>
+        <Col xs={12} classname={`dashTasks ${themeClass}`}>
+          <Row className="task-container">
+            <Col xs={12}>
+              <Row className="shadowHeader">
+                <Col xs={6} md={8} lg={10} className="selectedDate">
                   {selectedDate.toLocaleDateString("en-GB", {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
                   })}
                 </Col>
-                <Col className="col-md-3 col-lg-2 text-end mt-2">
+                <Col xs={6} md={4} lg={2} className="text-end my-2">
                   <button
-                    className="btn btn-success rounded-pill py-1"
+                    className="taskBTN-1 py-1"
                     onClick={handleShowAddModal}
                   >
                     New Task <MdAddTask className="fs-5 createTask" />
@@ -106,30 +118,40 @@ export default function Dashboard() {
                 </Col>
               </Row>
             </Col>
-            <Col className="col-12">
+            <Col xs={12} className="tasksBlock">
               {filteredTasks.length > 0 ? (
-                <>
-                  <Row className="text-center">
-                    <Col className="col-2">Title</Col>
-                    <Col className="col-3">Description</Col>
-                    <Col className="col-1">Time</Col>
+                <div className="scrollable" data-bs-spy="scroll">
+                  <Row className="text-center ms-3 me-0 mb-2 align-items-center ">
+                    <Col xs={2}>Title</Col>
+                    <Col xs={3}>Description</Col>
+                    <Col xs={1}>Time</Col>
 
-                    <Col className="col-2">In progress</Col>
-                    <Col className="col-1">Done</Col>
-                    <Col className="col-2">Edit</Col>
-                    <Col className="col-1">Delete</Col>
+                    <Col xs={2}>In progress</Col>
+                    <Col xs={1}>Done</Col>
+                    <Col xs={2}>Edit</Col>
+                    <Col xs={1} className="ps-0">
+                      Delete
+                    </Col>
                   </Row>
-                  {filteredTasks.map((task) => (
+
+                  {sortedTasks.map((task) => (
                     <Row
                       key={task.id}
-                      className="text-center"
-                      style={{ backgroundColor: getStatusColor(task.status) }}
+                      className="text-center ms-3 me-0 my-2 py-1 align-items-center taskDim"
+                      style={{
+                        backgroundImage: getStatusColor(task.status),
+                        borderRadius: "10px",
+                      }}
                     >
-                      <Col className="col-2">{task.title}</Col>
-                      <Col className="col-3">{task.description}</Col>
-                      <Col className="col-1">{task.time.substr(0, 5)}</Col>
+                      <Col xs={2} className="cut fw-bold ">
+                        {task.title}
+                      </Col>
+                      <Col xs={3} className="cut ">
+                        {task.description}
+                      </Col>
+                      <Col xs={1}>{task.time.substr(0, 5)}</Col>
 
-                      <Col className="col-2">
+                      <Col xs={2}>
                         <Form.Check
                           type="checkbox"
                           checked={task.status === "IN_PROGRESS"}
@@ -138,24 +160,24 @@ export default function Dashboard() {
                           }
                         />
                       </Col>
-                      <Col className="col-1">
+                      <Col xs={1}>
                         <Form.Check
                           type="checkbox"
                           checked={task.status === "DONE"}
                           onChange={() => handleStatusChange(task.id, "DONE")}
                         />
                       </Col>
-                      <Col className="col-2">
+                      <Col xs={2}>
                         <button
-                          className="btn btn-primary"
+                          className="taskBTN "
                           onClick={() => handleShowEditModal(task)}
                         >
-                          <FaRegEdit />
+                          <CiEdit />
                         </button>
                       </Col>
-                      <Col className="col-1">
+                      <Col xs={1} className="ps-0">
                         <button
-                          className="btn btn-danger"
+                          className="taskBTN"
                           onClick={() => handleDelete(task.id)}
                         >
                           <MdDeleteOutline />
@@ -163,13 +185,16 @@ export default function Dashboard() {
                       </Col>
                     </Row>
                   ))}
-                </>
+                </div>
               ) : (
                 <p>No tasks found for selected date.</p>
               )}
             </Col>
           </Row>
         </Col>
+      </Row>
+      <Row className="ms-0">
+        <MyFooter />
       </Row>
       {/* MODALS FOR DELETION OR UPDATE TASK*/}
       <AddTaskModal show={showAddModal} handleClose={handleCloseAddModal} />
@@ -180,6 +205,6 @@ export default function Dashboard() {
           task={currentTask}
         />
       )}
-    </>
+    </div>
   );
 }

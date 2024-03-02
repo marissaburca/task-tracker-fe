@@ -1,0 +1,10 @@
+.offCanv.light{
+ color: black ;
+  background-color: white;
+}
+.offCanv.dark{
+color: white;
+  background-color: rgb(17, 29, 48);
+}
+
+

@@ -41,6 +41,7 @@ export const updateUserDetails = async (userDetails, token) => {
     console.log(error.message);
   }
 };
+
 export const updateUserPassword = (passwordData, token) => {
   return new Promise((resolve, reject) => {
     fetch(`http://localhost:3001/user/updatePassword`, {
@@ -56,7 +57,30 @@ export const updateUserPassword = (passwordData, token) => {
         alert("New password cannot correspond to the old one.")
         throw new Error("New password cannot correspond to the old one.");
       }
-      resolve("Password changed successfully. We are leading you to dashboard."); // Resolve con un messaggio di successo
+      resolve("Password changed successfully. We are leading you to dashboard.");
+    })
+    .catch(error => {
+      console.error(error.message);
+      reject(error); 
+    });
+  });
+};
+
+export const deleteAccount= (token) => {
+  return new Promise((resolve, reject) => {
+    fetch(`http://localhost:3001/user/deleteAccount`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(response => {
+      if (!response.ok) {
+        alert("Account deletion failed")
+        throw new Error("Account deletion failed");
+      }
+      resolve("Account deleted successfully. We are leading you to LOGIN page."); 
     })
     .catch(error => {
       console.error(error.message);

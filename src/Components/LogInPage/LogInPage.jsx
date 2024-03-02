@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import {
   setEmail,
   setPassword,
@@ -58,16 +58,17 @@ export default function LogInPage() {
   });
 
   return (
-    <Row className="mx-auto w-75 ">
-      <Col className="anim d-flex text-center col-12 mb-3 ">
-        <h1 className="enter  animate__animated animate__flip ">
+
+    <Row className="mx-auto w-75 mt-5 ">
+      <Col className="anim d-flex text-center mb-3 mt-5 ">
+        <h1 className="enter animate__animated animate__flip ">
           TASK TRACKER
         </h1>
       </Col>
-      <Col className="px-0 logFormExt col-12">
+      <Col xs={12} className="px-0 logFormExt ">
         <Form onSubmit={handleSubmit} className="logFormInt">
           <Row>
-            <Col className=" col-12">
+            <Col xs={12}>
               <Form.Group className="mb-3 mt-2" controlId="formBasicEmail">
                 <Form.Label className="labels">EMAIL ADDRESS</Form.Label>
                 <Form.Control
@@ -80,7 +81,7 @@ export default function LogInPage() {
                 />
               </Form.Group>
             </Col>
-            <Col className=" col-12">
+            <Col xs={12}>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className="labels">PASSWORD</Form.Label>
                 <Form.Control
@@ -93,12 +94,12 @@ export default function LogInPage() {
                 />
               </Form.Group>
             </Col>
-            <Col className="col-4 d-flex align-self-end ">
+            <Col xs={6} className=" d-flex align-self-end ">
               <button className="px-3 py-1 glowing-btn-1 fw-bold" type="submit">
-                LOGIN
+                LOG IN
               </button>
             </Col>
-            <Col className="col-8 text-end">
+            <Col   xs={6} className="text-end">
               <div className="register"> Don't you have an account yet?</div>
 
               <Link to="/register">

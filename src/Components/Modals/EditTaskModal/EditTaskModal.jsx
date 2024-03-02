@@ -8,6 +8,7 @@ const EditTaskModal = ({ show, handleClose, task }) => {
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
+  const [priority, setPriority] = useState("");
   const dispatch = useDispatch();
 
 
@@ -17,11 +18,12 @@ const EditTaskModal = ({ show, handleClose, task }) => {
       setDescription(task.description);
       setTime(task.time.substr(0, 5));
       setDate(task.date);
+      setPriority(task.priority);
     }
   }, [task]);
 
   const handleSave = () => {
-    const updatedTask = { ...task, title, description, time, date };
+    const updatedTask = { ...task, title, description, time, date, priority };
     dispatch(editTaskSuccess(updatedTask));
     handleClose();
   };
@@ -68,7 +70,19 @@ const EditTaskModal = ({ show, handleClose, task }) => {
               onChange={(e) => setTime(e.target.value)}
             />
           </Form.Group>
-       
+          <Form.Group className="mb-3">
+            <Form.Label>Priority</Form.Label>
+            <Form.Select
+              name="priority"
+              value={priority}
+              onChange={(e) => setPriority(e.target.value)}
+            >
+              <option value="">Select Priority</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </Form.Select>
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>

@@ -52,24 +52,28 @@ export const setPassword = (password) => {
   };
 };
 
-export const signinUser = async (userDetails) => {
-  try {
-    const response = await fetch("http://localhost:3001/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userDetails),
-    });
-    if (!response.ok) {
-      alert("Error during Signin! Try again.");
-      throw new Error("Registration failed");
+export const signupUser = (userDetails) => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch("http://localhost:3001/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userDetails),
+      });
+      if (!response.ok) {
+        alert("Error during SignUp! Try again.");
+        throw new Error("Registration failed");
+      }
+      const data = await response.json();
+      console.log(data);
+      localStorage.setItem("userId", data.id.toString());
+      localStorage.setItem("username", data.username);
+      localStorage.setItem("avatar url", data.avatarUrl);
+    } catch (error) {
+      console.log(error.message);
     }
-    const data = await response.json();
-    localStorage.setItem("userId", data.id.toString());
-  } catch (error) {
-    console.log(error.message);
-  }
+  };
 };
-
 
