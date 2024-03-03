@@ -3,6 +3,7 @@
   height: 50px;
   position: fixed;
   border-bottom: 2px solid grey;
+  z-index: 10;
 }
 .mynav.dark {
   color: white;

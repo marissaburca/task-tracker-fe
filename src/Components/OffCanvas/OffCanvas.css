@@ -7,4 +7,9 @@ color: white;
   background-color: rgb(17, 29, 48);
 }
 
-
+.action:hover{
+color:rgb(197,94,59) !important;
+text-decoration: underline;
+transform: scale(1.1) ;
+ transform: translateX(1px); 
+}

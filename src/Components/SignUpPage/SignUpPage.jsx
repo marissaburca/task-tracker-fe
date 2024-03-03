@@ -16,10 +16,13 @@ import {
   signupUser,
 } from "../../Redux/Actions/userActions";
 import getAvatars from "../StructuralApi/AvatarApi";
+import MyFooter from "../Footer/MyFooter";
+
 
 export default function SignUpPage() {
   const [avatars, setAvatars] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
@@ -119,13 +122,15 @@ export default function SignUpPage() {
   };
 
   /* ************************************************ */
+ 
 
   return (
-    <Row className="mx-auto w-75 mt-5 ">
+    <>
+    <Row className="mx-auto mt-5 mainSignUp">
       <Col xs={12} className="anim2 d-flex text-center mb-3 ">
         <h1 className="enter2 animate__animated animate__flip">TASK TRACKER</h1>
       </Col>
-      <Col xs={12} className="px-0 ">
+      <Col xs={12} className="px-0 logFormExt2 ">
         <Form onSubmit={handleSubmit} className="logFormInt2 text-start">
           <Row className="mb-3">
             <Form.Group className="mb-3 col-12" controlId="validationCustom01">
@@ -281,5 +286,9 @@ export default function SignUpPage() {
         </Form>
       </Col>
     </Row>
+    <Row>
+      <MyFooter></MyFooter>
+    </Row>
+    </>
   );
 }

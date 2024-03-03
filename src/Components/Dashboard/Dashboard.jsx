@@ -97,7 +97,7 @@ export default function Dashboard() {
         <Col xs={12} md={7} className="mt-2 mx-0 dashNotes">
           <NoteBlock />
         </Col>
-        <Col xs={12} classname={`dashTasks ${themeClass}`}>
+        <Col xs={12} className={`dashTasks ${themeClass}`}>
           <Row className="task-container">
             <Col xs={12}>
               <Row className="shadowHeader">

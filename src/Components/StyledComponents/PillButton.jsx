@@ -15,7 +15,7 @@ const PillButtonStyle = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 1;
+  z-index: 11;
   @media (max-width: 770px) {
     top: 5px;
     width:30px;

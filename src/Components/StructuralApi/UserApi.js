@@ -33,9 +33,11 @@ export const updateUserDetails = async (userDetails, token) => {
     });
     if (!response.ok) {
       alert("Error in fetch! Try again.");
+      console.log("problema in update")
       throw new Error("Registration failed");
     }
     const data = await response.json();
+    console.log(data)
     return data;
   } catch (error) {
     console.log(error.message);

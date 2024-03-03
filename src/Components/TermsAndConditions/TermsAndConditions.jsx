@@ -3,10 +3,14 @@ import { Container, Row, Col} from "react-bootstrap";
 import { Link} from "react-router-dom";
 
 export default function TermsAndConditions() {
+  const token = localStorage.getItem("token");
+  const linkPath= token?  "/dashboard" : "/register";
+  const buttonText = token ? "GO TO DASHBOARD" : "BACK TO SIGNUP";
+
   return (
-    <Container className="my-5 ">
-      <Row className="justify-content-center">
-        <Col xs={12} md={8}>
+    <Container className="my-5">
+      <Row className="justify-content-center ">
+        <Col xs={12} md={8} className="terms">
           <h1>Terms and Conditions</h1>
           <p className="mt-4">
             Welcome to our Task Tracker App. By accessing or using our app, you
@@ -43,10 +47,10 @@ export default function TermsAndConditions() {
           </p>
           <h2>Contact Us</h2>
           <p>If you have any questions about these Terms, please contact us.</p>
-          <Link to="/register" >
+          <Link to={linkPath} >
             {" "}
             <button variant="primary" type="button" className="glowing-btn-1 mt-5 p-2">
-              BACK TO SIGNUP
+              {buttonText}
             </button>
           </Link>
         </Col>

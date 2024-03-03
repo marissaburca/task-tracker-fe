@@ -13,9 +13,11 @@ import {
   updateUserDetails,
 } from "../StructuralApi/UserApi";
 import MyFooter from "../Footer/MyFooter";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountPage() {
   const token = useSelector((state) => state.auth.token);
+  const navigate= useNavigate();
   const [userDetails, setUserDetails] = useState({
     name: "",
     surname: "",
@@ -97,11 +99,14 @@ export default function AccountPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userDetails);
+    console.log(userDetails,"buoonaseraaaa");
     updateUserDetails(userDetails, token)
       .then((response) => {
         if (response) {
+          localStorage.setItem("avatar url",response.avatar.url )
+          localStorage.setItem("username",response.username)
           alert("Updated user details successfully.");
+          navigate("/account")
         } else {
           throw new Error("Error in getting response");
         }
@@ -165,15 +170,15 @@ export default function AccountPage() {
   };
 
   return (
-    <div>
+    <div className="dataChange">
       <Row className="mx-0">
         <MyNavbar />
       </Row>
 
-      <Row className="central mx-auto">
+      <Row className="central mx-auto ">
         <h3 className="fw-bold py-4 ps-0 text-center">ACCOUNT INFORMATIONS</h3>
         <Col xs={12} className="px-0 ">
-          <Form className="text-start" onSubmit={handleSubmit}>
+          <Form className="text-start">
             <Row className="mb-3">
               <Col xs={12} md={6}>
                 <Row className="mx-0">
@@ -186,7 +191,6 @@ export default function AccountPage() {
                         className="glow2"
                         required
                         type="text"
-                        placeholder="name.."
                         name="name"
                         value={userDetails.name}
                         onChange={handleChange}
@@ -224,7 +228,6 @@ export default function AccountPage() {
                           onFocus={() => handleFocus("us")}
                           style={inputStyle("us")}
                           type="text"
-                          placeholder="username.."
                           aria-describedby="inputGroupPrepend"
                           required
                           className="glow2"
@@ -268,7 +271,6 @@ export default function AccountPage() {
                         className="glow2"
                         required
                         type="text"
-                        placeholder="email.."
                         name="email"
                         value={userDetails.email}
                         onChange={handleChange}
@@ -320,7 +322,11 @@ export default function AccountPage() {
           <Row className="mx-0 px-0">
             {" "}
             <Col xs={12} md={6} className="text-start mx-0  px-0 a">
-              <button type="submit" className="glowing-btn-1 px-3 py-1 fw-bold ">
+              <button
+              onClick={handleSubmit}
+                type="submit"
+                className="glowing-btn-1 px-3 py-1 fw-bold "
+              >
                 Save changes
               </button>
             </Col>

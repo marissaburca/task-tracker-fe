@@ -3,12 +3,13 @@ import Form from "react-bootstrap/Form";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
+import {  Row, Col } from "react-bootstrap";
 import {
   setEmail,
   setPassword,
   loginUser,
 } from "../../Redux/Actions/authActions.js";
+import MyFooter from "../Footer/MyFooter";
 
 export default function LogInPage() {
   const navigate = useNavigate();
@@ -58,8 +59,8 @@ export default function LogInPage() {
   });
 
   return (
-
-    <Row className="mx-auto w-75 mt-5 ">
+<>
+    <Row className="mx-auto w-75 mt-5 mainLogin">
       <Col className="anim d-flex text-center mb-3 mt-5 ">
         <h1 className="enter animate__animated animate__flip ">
           TASK TRACKER
@@ -94,12 +95,12 @@ export default function LogInPage() {
                 />
               </Form.Group>
             </Col>
-            <Col xs={6} className=" d-flex align-self-end ">
+            <Col xs={5} className=" d-flex align-self-end ">
               <button className="px-3 py-1 glowing-btn-1 fw-bold" type="submit">
                 LOG IN
               </button>
             </Col>
-            <Col   xs={6} className="text-end">
+            <Col   xs={7} className="text-end">
               <div className="register"> Don't you have an account yet?</div>
 
               <Link to="/register">
@@ -108,9 +109,15 @@ export default function LogInPage() {
                 </button>
               </Link>
             </Col>
+           
           </Row>
         </Form>
-      </Col>
+      </Col> 
     </Row>
+    <Row>
+      <MyFooter/>
+      </Row>
+    </>      
+           
   );
 }

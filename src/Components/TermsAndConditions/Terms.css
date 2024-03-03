@@ -1,0 +1,8 @@
+.terms{
+    height:100vh;
+}
+@media (min-width:771){
+    .terms{
+        width:90%;
+    }
+}

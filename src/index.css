@@ -10,26 +10,22 @@
   background-color: #fff;
   color: black;
 }
-/* BODY DIMENSION */
-#root {
-  margin: 0;
-  height: 100vh;
-  width: 100vw;
+#mainRow {
+  width: 100%;
+  min-height: 100vh;
+  max-height:100%;
   min-width: 350px;
   font-family: "Raleway", sans-serif;
-  overflow-x: hidden;
+  margin: 0 auto;
+  flex-direction:column;
+  
 }
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.middleCol {
+  height: 100%;
+  margin-bottom: 20px;
+  align-items:flex-start;
 }
-
-.theme {
+.themeContainer {
   height: 0;
   width: 0;
-}
-.tall{
-  flex-direction:column;
-  align-items:flex-start;
 }
