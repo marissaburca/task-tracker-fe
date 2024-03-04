@@ -113,7 +113,8 @@ export const handleEditTask = (task,id, token) => async (dispatch) => {
 
     if (!response.ok) {
       throw new Error("Something went wrong while updating task");
-    } 
+    }
+ 
     dispatch(editTaskSuccess(task));
     dispatch(handleGetTasks(token));    
   } catch (error) {

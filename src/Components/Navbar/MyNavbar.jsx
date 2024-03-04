@@ -13,7 +13,7 @@ export default function MyNavbar() {
     <Row className={`px-2 mx-0 justify-content-between mynav ${themeClass}`}>
       <Col xs={3}>
         <Link to="/">
-          <p className="logo">TASK-TRACKER</p>
+          <p className="logo mt-0">TASK-TRACKER</p>
         </Link>
       </Col>
       <Col>
