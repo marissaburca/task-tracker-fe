@@ -50,7 +50,7 @@ export default function OffCanvas() {
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <IoHome className="me-3 mb-1" />
-                <p className="mb-0">Dashboard</p>
+                <p className="mt-0">Dashboard</p>
               </Link>
             </Col>
             <Col className="col-12 mx-4 border-bottom border-2 py-3 ">
@@ -59,7 +59,7 @@ export default function OffCanvas() {
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <IoNotifications className="me-3 mb-1" />
-                <p className="mb-0">Notification</p>
+                <p className="mt-0">Notification</p>
               </Link>
             </Col>
             <Col className="col-12 mx-4 border-bottom border-2 py-3">
@@ -68,7 +68,7 @@ export default function OffCanvas() {
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <RiAccountCircleFill className="me-3 mb-1" />
-                <p className="mb-0">Your Account</p>
+                <p className="mt-0">Your Account</p>
               </Link>
             </Col>
             <Col className="col-12 mx-4 border-bottom border-2 py-3">
@@ -77,7 +77,7 @@ export default function OffCanvas() {
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <RiLockPasswordFill className="me-3 mb-1" />
-                <p className="mb-0">Edit Password</p>
+                <p className="mt-0">Edit Password</p>
               </Link>
             </Col>
             <Col className="col-12 mx-4 border-bottom border-2 py-3">
@@ -86,7 +86,7 @@ export default function OffCanvas() {
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <GrDocumentText className="me-3 mb-1" />
-                <p className="mb-0">Terms & Conditions</p>
+                <p className="mt-0">Terms & Conditions</p>
               </Link>
             </Col>
             <Col className="col-12 text-end mt-3">

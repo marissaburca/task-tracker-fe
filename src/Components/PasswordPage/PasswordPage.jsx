@@ -68,7 +68,7 @@ export default function PasswordPage() {
         <MyNavbar />
       </Row>
       <Row className="mx-0 middle">
-        <Form className=" myFormPsws text-start mx-auto mt-5" onSubmit={handleSubmit}>
+        <Form className=" myFormPsws text-start mx-auto mt-5">
           <Row className="mb-3">
             <Row>
               <Col xs={12}>
@@ -118,7 +118,7 @@ export default function PasswordPage() {
 
           <Row className="mx-0 mt-4  justify-content-center">
             <Col xs={12} className="px-0">
-            <button type="submit" className="glowing-btn-1 px-3 py-1 fw-bold">
+            <button type="submit" className="glowing-btn-1 px-3 py-1 fw-bold" onClick={handleSubmit}>
               Save changes
             </button></Col>
           </Row>

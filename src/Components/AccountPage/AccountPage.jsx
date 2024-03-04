@@ -14,6 +14,16 @@ import {
 } from "../StructuralApi/UserApi";
 import MyFooter from "../Footer/MyFooter";
 import { useNavigate } from "react-router-dom";
+import SmileSpin from "../Spinner/EditAccSpin/SmileSpin";
+
+const loadImage = (url) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = url;
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+};
 
 export default function AccountPage() {
   const token = useSelector((state) => state.auth.token);
@@ -27,18 +37,24 @@ export default function AccountPage() {
     email: "",
   });
 
+
   //AVATARS
 
   const [avatars, setAvatars] = useState([]);
   const [selectedAvatarId, setSelectedAvatarId] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
-        const data = await getAvatars();
-        setAvatars(data);
+        setLoading(true); 
+        const data = await getAvatars(); 
+        await Promise.all(data.map(avatar => loadImage(avatar.url))); 
+        setAvatars(data); 
+        setLoading(false); 
       } catch (error) {
         console.error("Error while recovering avatars: ", error);
+        setLoading(false); 
       }
     };
 
@@ -286,31 +302,36 @@ export default function AccountPage() {
                     <Form.Label className="labels">
                       CHOOSE ANOTHER AVATAR
                     </Form.Label>
-                    <div className="avatar-selection-container">
-                      {Array.isArray(avatars) &&
-                        avatars.map((avatar) => (
-                          <div
-                            key={avatar.id}
-                            className={`avatar-option ${
-                              selectedAvatarId === avatar.id
-                                ? "avatar-img-clicked1"
-                                : ""
-                            }`}
-                            onClick={() => handleAvatarClick(avatar.id)}
-                            style={{
-                              cursor: "pointer",
-                              display: "inline-block",
-                              margin: "5px",
-                            }}
-                          >
-                            <img
-                              src={avatar.url}
-                              alt={`Avatar ${avatar.id}`}
-                              className="avatar-img1"
-                            />
-                          </div>
-                        ))}
-                    </div>
+                    {loading ? (
+                  <div className="d-flex justify-content-start align-items-center" style={{height:"50px"}}>
+                  <SmileSpin />
+                  </div>
+                ) : (
+                  <div className="avatar-selection-container">
+                    {avatars.map((avatar) => (
+                      <div
+                        key={avatar.id}
+                        className={`avatar-option ${
+                          selectedAvatarId === avatar.id
+                            ? "avatar-img-clicked"
+                            : ""
+                        }`}
+                        onClick={() => handleAvatarClick(avatar.id)}
+                        style={{
+                          cursor: "pointer",
+                          display: "inline-block",
+                          margin: "5px",
+                        }}
+                      >
+                        <img
+                          src={avatar.url}
+                          alt={`Avatar ${avatar.id}`}
+                          className="avatar-img"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
                   </Form.Group>
                 </Col>{" "}
               </Col>

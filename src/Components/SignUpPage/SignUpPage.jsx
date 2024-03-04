@@ -17,19 +17,32 @@ import {
 } from "../../Redux/Actions/userActions";
 import getAvatars from "../StructuralApi/AvatarApi";
 import MyFooter from "../Footer/MyFooter";
+import SmileSpinner from "../Spinner/SignupSpin/SmileSpinner";
 
+const loadImage = (url) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = url;
+    img.onload = resolve;
+    img.onerror = reject;
+  });
+};
 
 export default function SignUpPage() {
   const [avatars, setAvatars] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
-        const data = await getAvatars(); // CALL TO ASYNC FUNCTION
-        setAvatars(data); // SAVES DATA IN COMPONENT STATE
+        setLoading(true); 
+        const data = await getAvatars(); 
+        await Promise.all(data.map(avatar => loadImage(avatar.url))); 
+        setAvatars(data); 
+        setLoading(false); 
       } catch (error) {
         console.error("Error while recovering avatars: ", error);
+        setLoading(false); 
       }
     };
 
@@ -122,173 +135,193 @@ export default function SignUpPage() {
   };
 
   /* ************************************************ */
- 
 
   return (
     <>
-    <Row className="mx-auto mt-5 mainSignUp">
-      <Col xs={12} className="anim2 d-flex text-center mb-3 ">
-        <h1 className="enter2 animate__animated animate__flip">TASK TRACKER</h1>
-      </Col>
-      <Col xs={12} className="px-0 logFormExt2 ">
-        <Form onSubmit={handleSubmit} className="logFormInt2 text-start">
-          <Row className="mb-3">
-            <Form.Group className="mb-3 col-12" controlId="validationCustom01">
-              <Form.Label className="labels">NAME</Form.Label>
-              <Form.Control
-                onFocus={() => handleFocus("fn")}
-                style={inputStyle("fn")}
-                className="glow1"
-                required
-                onChange={(e) => dispatch(setName(e.target.value))}
-                type="text"
-                placeholder="name.."
-              />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group  controlId="validationCustom02" className="col-12">
-              <Form.Label className="labels">SURNAME</Form.Label>
-              <Form.Control
-                onFocus={() => handleFocus("sn")}
-                style={inputStyle("sn")}
-                className="glow1"
-                onChange={(e) => dispatch(setSurname(e.target.value))}
-                required
-                type="text"
-                placeholder="surname..."
-              />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group 
-              className="mb-2 col-9"
-              controlId="validationCustomUsername"
-            >
-              <Form.Label className="labels">USERNAME</Form.Label>
-              <InputGroup>
-                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                <Form.Control
-                  onFocus={() => handleFocus("us")}
-                  style={inputStyle("us")}
-                  type="text"
-                  placeholder="username.."
-                  aria-describedby="inputGroupPrepend"
-                  required
-                  className="glow1 rounded-end"
-                  onChange={(e) => dispatch(setUsername(e.target.value))}
-                />
-                <Form.Control.Feedback>Nice one!</Form.Control.Feedback>
-                <Form.Control.Feedback type="invalid">
-                  Please choose an username.
-                </Form.Control.Feedback>
-              </InputGroup>
-            </Form.Group>
-            <Form.Group controlId="genderSelect" className="col-9 mb-2">
-              <Form.Label className="labels">GENDER</Form.Label>
-              <Form.Select
-                onFocus={() => handleFocus("gr")}
-                style={inputStyle("gr")}
-                className="glow1"
-                aria-label="Gender select"
-                onChange={(e) => dispatch(setGender(e.target.value))}
+      <Row className="mx-auto mt-5 mainSignUp">
+        <Col xs={12} className="anim2 d-flex text-center mb-3 ">
+          <h1 className="enter2 animate__animated animate__flip">
+            TASK TRACKER
+          </h1>
+        </Col>
+        <Col xs={12} className="px-0 logFormExt2 ">
+      
+          <Form onSubmit={handleSubmit} className="logFormInt2 text-start">
+            <Row className="mb-3">
+              <Form.Group
+                className="mb-3 col-12"
+                controlId="validationCustom01"
               >
-                {genderOptions.map((gender) => (
-                  <option key={gender} value={gender}>
-                    {gender}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-            <Form.Group controlId="avatarSelect" className="col-12">
-              <Form.Label className="labels">CHOOSE AN AVATAR</Form.Label>
-              <div className="avatar-selection-container">
-                {Array.isArray(avatars) &&
-                  avatars.map((avatar) => (
-                    <div
-                      key={avatar.id}
-                      className={`avatar-option ${
-                        selectedAvatarId === avatar.id
-                          ? "avatar-img-clicked"
-                          : ""
-                      }`}
-                      onClick={() => handleAvatarClick(avatar.id)}
-                      style={{
-                        cursor: "pointer",
-                        display: "inline-block",
-                        margin: "5px",
-                      }}
-                    >
-                      <img
-                        src={avatar.url}
-                        alt={`Avatar ${avatar.id}`}
-                        className="avatar-img"
-                      />
-                    </div>
+                <Form.Label className="labels">NAME</Form.Label>
+                <Form.Control
+                  onFocus={() => handleFocus("fn")}
+                  style={inputStyle("fn")}
+                  className="glow1"
+                  required
+                  onChange={(e) => dispatch(setName(e.target.value))}
+                  type="text"
+                  placeholder="name.."
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group controlId="validationCustom02" className="col-12">
+                <Form.Label className="labels">SURNAME</Form.Label>
+                <Form.Control
+                  onFocus={() => handleFocus("sn")}
+                  style={inputStyle("sn")}
+                  className="glow1"
+                  onChange={(e) => dispatch(setSurname(e.target.value))}
+                  required
+                  type="text"
+                  placeholder="surname..."
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group
+                className="mb-2 col-9"
+                controlId="validationCustomUsername"
+              >
+                <Form.Label className="labels">USERNAME</Form.Label>
+                <InputGroup>
+                  <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+                  <Form.Control
+                    onFocus={() => handleFocus("us")}
+                    style={inputStyle("us")}
+                    type="text"
+                    placeholder="username.."
+                    aria-describedby="inputGroupPrepend"
+                    required
+                    className="glow1 rounded-end"
+                    onChange={(e) => dispatch(setUsername(e.target.value))}
+                  />
+                  <Form.Control.Feedback>Nice one!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    Please choose an username.
+                  </Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+              <Form.Group controlId="genderSelect" className="col-9 mb-2">
+                <Form.Label className="labels">GENDER</Form.Label>
+                <Form.Select
+                  onFocus={() => handleFocus("gr")}
+                  style={inputStyle("gr")}
+                  className="glow1"
+                  aria-label="Gender select"
+                  onChange={(e) => dispatch(setGender(e.target.value))}
+                >
+                  {genderOptions.map((gender) => (
+                    <option key={gender} value={gender}>
+                      {gender}
+                    </option>
                   ))}
-              </div>
-            </Form.Group>
-          </Row>
-          <Row className="mb-3">
-            <Form.Group xs={12} className="mb-3" controlId="validationCustom03">
-              <Form.Label className="labels">EMAIL</Form.Label>
-              <Form.Control
-                onFocus={() => handleFocus("em")}
-                style={inputStyle("em")}
-                className="glow1"
-                onChange={(e) => dispatch(setEmail(e.target.value))}
-                type="email"
-                placeholder="type email..."
+                </Form.Select>
+              </Form.Group>
+              <Form.Group controlId="avatarSelect" className="col-12">
+                <Form.Label className="labels">CHOOSE AN AVATAR</Form.Label>
+                {loading ? (
+                  <div className="d-flex justify-content-center align-items-center" style={{height:"50px"}}>
+                  <SmileSpinner />
+                  </div>
+                ) : (
+                  <div className="avatar-selection-container">
+                    {avatars.map((avatar) => (
+                      <div
+                        key={avatar.id}
+                        className={`avatar-option ${
+                          selectedAvatarId === avatar.id
+                            ? "avatar-img-clicked"
+                            : ""
+                        }`}
+                        onClick={() => handleAvatarClick(avatar.id)}
+                        style={{
+                          cursor: "pointer",
+                          display: "inline-block",
+                          margin: "5px",
+                        }}
+                      >
+                        <img
+                          src={avatar.url}
+                          alt={`Avatar ${avatar.id}`}
+                          className="avatar-img"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </Form.Group>
+            </Row>
+            <Row className="mb-3">
+              <Form.Group
+                xs={12}
+                className="mb-3"
+                controlId="validationCustom03"
+              >
+                <Form.Label className="labels">EMAIL</Form.Label>
+                <Form.Control
+                  onFocus={() => handleFocus("em")}
+                  style={inputStyle("em")}
+                  className="glow1"
+                  onChange={(e) => dispatch(setEmail(e.target.value))}
+                  type="email"
+                  placeholder="type email..."
+                  required
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please provide a valid email.
+                </Form.Control.Feedback>
+              </Form.Group>
+              <Form.Group
+                xs={12}
+                className="mb-3"
+                controlId="validationCustom04"
+              >
+                <Form.Label className="labels">PASSWORD</Form.Label>
+                <Form.Control
+                  onFocus={() => handleFocus("pw")}
+                  style={inputStyle("pw")}
+                  className="glow1"
+                  type="password"
+                  placeholder="type password..."
+                  required
+                  onChange={(e) => dispatch(setPassword(e.target.value))}
+                />
+                <Form.Control.Feedback type="invalid">
+                  Please provide a password.
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Form.Group className="mb-3">
+              <Form.Check
                 required
+                type="checkbox"
+                label={
+                  <>
+                    Agree to{" "}
+                    <Link to="/terms" className="text-white">
+                      Terms and conditions
+                    </Link>
+                  </>
+                }
+                feedback="You must agree before submitting."
+                feedbackType="invalid"
               />
-              <Form.Control.Feedback type="invalid">
-                Please provide a valid email.
-              </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group xs={12} className="mb-3" controlId="validationCustom04">
-              <Form.Label className="labels">PASSWORD</Form.Label>
-              <Form.Control
-                onFocus={() => handleFocus("pw")}
-                style={inputStyle("pw")}
-                className="glow1"
-                type="password"
-                placeholder="type password..."
-                required
-                onChange={(e) => dispatch(setPassword(e.target.value))}
-              />
-              <Form.Control.Feedback type="invalid">
-                Please provide a password.
-              </Form.Control.Feedback>
-            </Form.Group>
-          </Row>
-          <Form.Group className="mb-3">
-            <Form.Check
-              required
-              type="checkbox"
-              label={
-                <>
-                  Agree to{" "}
-                  <Link to="/terms" className="text-white">Terms and conditions</Link>
-                </>
-              }
-              feedback="You must agree before submitting."
-              feedbackType="invalid"
-            />
-          </Form.Group>
-          <Col xs={12}  className="d-flex justify-content-between">
-            <button type="submit" className="glowing-btn-2 px-3 py-1 fw-bold">
-              SUBMIT
-            </button>
-            <Link to="/">
-              <button className="glowing-btn-1 px-3 py-1 fw-bold">
-                BACK TO LOG IN
+            <Col xs={12} className="d-flex justify-content-between">
+              <button type="submit" className="glowing-btn-2 px-3 py-1 fw-bold">
+                SUBMIT
               </button>
-            </Link>
-          </Col>
-        </Form>
-      </Col>
-    </Row>
-    <Row>
-      <MyFooter></MyFooter>
-    </Row>
+              <Link to="/">
+                <button className="glowing-btn-1 px-3 py-1 fw-bold">
+                  BACK TO LOG IN
+                </button>
+              </Link>
+            </Col>
+          </Form>
+        </Col>
+      </Row>
+      <Row>
+        <MyFooter></MyFooter>
+      </Row>
     </>
   );
 }

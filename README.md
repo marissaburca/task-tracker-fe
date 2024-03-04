@@ -1,70 +1,49 @@
-# Getting Started with Create React App
+# 🌟 Task Tracker Frontend 🌟
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Task Tracker Frontend repository! This user-friendly application is designed to help you effortlessly track your daily tasks, ensuring you stay organized and on top of your responsibilities. 📋✨
 
-## Available Scripts
+## Features 🚀
 
-In the project directory, you can run:
+Our Task Tracker offers a variety of features to enhance your productivity, including:
 
-### `npm start`
+- **Daily Task Management**: Easily add, edit, and delete your daily tasks. Keep everything organized in one place. 📝
+- **Task Prioritization**: Prioritize your tasks with customizable labels such as High, Medium, or Low priority, helping you focus on what matters most. 🔝
+- **Progress Tracking**: Mark tasks as completed and track your progress throughout the day. Feel the satisfaction of seeing your tasks checked off! ✔️
+- **Intuitive User Interface**: A clean, intuitive UI that makes navigating and managing your tasks a breeze. 🌈
+- **Responsive Design**: Whether you're on your computer or mobile device, Task Tracker adapts to your screen, providing a seamless experience. 📱💻
+- **Secure Authentication**: Sign up, log in, and manage your tasks with full security. 🔐
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Getting Started 🌱
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To get started with Task Tracker, simply clone this repository and follow the setup instructions below. Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-### `npm test`
+```bash
+git clone <repository-url>
+cd task-tracker-fe
+npm install
+npm start
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Your Task Tracker app will be running on `http://localhost:3000/`.
 
-### `npm run build`
+## API Documentation 📖
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+For a detailed overview of the backend API, please visit our Swagger documentation at [http://localhost:3001/swagger-ui/index.html#/](http://localhost:3001/swagger-ui/index.html#/). Here, you'll find all the endpoints and models used by the Task Tracker.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Contributing 🤝
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-### `npm run eject`
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Don't forget to give the project a star! ⭐
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Contact 📫
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Got any questions or want to connect? Reach out to me on [LinkedIn](https://www.linkedin.com/in/marissa-burca-developer/).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Let's make Task Tracker the best tool for managing daily tasks!
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Happy Tracking! 🎉👩‍💻🎉
