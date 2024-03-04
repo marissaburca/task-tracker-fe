@@ -12,7 +12,6 @@ export const getNotes = async (token) => {
         throw new Error("Impossible getting notes");
       }
       const data = await response.json();
-      console.log(data)
       return data;
     } catch (error) {
       console.log(error.message);

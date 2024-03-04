@@ -16,7 +16,7 @@ export default function MyNavbar() {
           <p className="logo mt-0">TASK-TRACKER</p>
         </Link>
       </Col>
-      <Col>
+      <Col >
      <div className="currentUser">
         <span className="userUsername">{currentUsername}</span>
         <img src={currentAvatar} alt="user-avatar" className="profileAV" /></div>

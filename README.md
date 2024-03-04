@@ -38,6 +38,9 @@ If you have a suggestion that would make this better, please fork the repo and c
 
 Don't forget to give the project a star! ⭐
 
+## Back-end repository 🚪
+[GITHUB] >>>> https://github.com/marissaburca/TASK_TRACKER_BE
+
 ## Contact 📫
 
 Got any questions or want to connect? Reach out to me on [LinkedIn](https://www.linkedin.com/in/marissa-burca-developer/).

@@ -74,13 +74,13 @@ export default function Dashboard() {
   const getStatusColor = (status) => {
     switch (status) {
       case "CREATED":
-        return "linear-gradient(to left, #ff2a00 0px, #ff2a00 10px, transparent 900px)";
+        return "linear-gradient(to left, #ff2a00 0px, #ff2a00 10px, transparent 1200px)";
       case "IN_PROGRESS":
-        return "linear-gradient(to left, rgb(242,228,110) 0px, rgb(242,228,110) 30px, transparent 900px)";
+        return "linear-gradient(to left, rgb(242,228,110) 0px, rgb(242,228,110) 30px, transparent 1200px)";
       case "DONE":
-        return "linear-gradient(to left, rgb(127, 188, 21) 0px, rgb(127, 188, 21) 100px, transparent 900px)";
+        return "linear-gradient(to left, rgb(127, 188, 21) 0px, rgb(127, 188, 21) 100px, transparent 1200px)";
       default:
-        return "linear-gradient(to left, #ff2a00 0px, #ff2a00 10px, transparent 900px)";
+        return "linear-gradient(to left, #ff2a00 0px, #ff2a00 10px, transparent 1200px)";
     }
   };
 

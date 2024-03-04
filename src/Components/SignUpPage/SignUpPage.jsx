@@ -35,14 +35,14 @@ export default function SignUpPage() {
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
-        setLoading(true); 
-        const data = await getAvatars(); 
-        await Promise.all(data.map(avatar => loadImage(avatar.url))); 
-        setAvatars(data); 
-        setLoading(false); 
+        setLoading(true);
+        const data = await getAvatars();
+        await Promise.all(data.map((avatar) => loadImage(avatar.url)));
+        setAvatars(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error while recovering avatars: ", error);
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -145,8 +145,7 @@ export default function SignUpPage() {
           </h1>
         </Col>
         <Col xs={12} className="px-0 logFormExt2 ">
-      
-          <Form onSubmit={handleSubmit} className="logFormInt2 text-start">
+          <Form className="logFormInt2 text-start">
             <Row className="mb-3">
               <Form.Group
                 className="mb-3 col-12"
@@ -219,8 +218,11 @@ export default function SignUpPage() {
               <Form.Group controlId="avatarSelect" className="col-12">
                 <Form.Label className="labels">CHOOSE AN AVATAR</Form.Label>
                 {loading ? (
-                  <div className="d-flex justify-content-center align-items-center" style={{height:"50px"}}>
-                  <SmileSpinner />
+                  <div
+                    className="d-flex justify-content-center align-items-center"
+                    style={{ height: "50px" }}
+                  >
+                    <SmileSpinner />
                   </div>
                 ) : (
                   <div className="avatar-selection-container">
@@ -307,7 +309,11 @@ export default function SignUpPage() {
               />
             </Form.Group>
             <Col xs={12} className="d-flex justify-content-between">
-              <button type="submit" className="glowing-btn-2 px-3 py-1 fw-bold">
+              <button
+                type="submit"
+                className="glowing-btn-2 px-3 py-1 fw-bold"
+                onClick={handleSubmit}
+              >
                 SUBMIT
               </button>
               <Link to="/">

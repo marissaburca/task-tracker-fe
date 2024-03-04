@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 import NoteModal from "../Modals/NoteModal/NoteModal";
-import { Row, Col, Spinner } from "react-bootstrap";
+import { Row, Col} from "react-bootstrap";
 import {
   getNotes,
   addNote,
@@ -10,6 +10,7 @@ import {
 } from "../StructuralApi/NotesApi";
 import "./NoteBlock.css";
 import { useSelector } from "react-redux";
+import SmileSpin from "../Spinner/EditAccSpin/SmileSpin";
 
 export default function NoteBlock() {
   const [showModal, setShowModal] = useState(false);
@@ -17,13 +18,13 @@ export default function NoteBlock() {
   const [newNote, setNewNote] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editNoteId, setEditNoteId] = useState(null);
-  const [isLoading, setIsLoading] = useState(true); // Inizialmente true per il caricamento iniziale
+  const [isLoading, setIsLoading] = useState(true); 
   const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     getNotes(token)
       .then((fetchedNotes) => {
-        setNotes(fetchedNotes || []); // Assicurati che fetchedNotes non sia undefined
+        setNotes(fetchedNotes || []);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -105,9 +106,9 @@ export default function NoteBlock() {
       </div>
       <div  className="notesOut">
         {isLoading ? (
-          <Spinner animation="border" role="status">
+          <SmileSpin animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
-          </Spinner>
+          </SmileSpin>
         ) : (
           <div className="notesIn">
             {notes.length > 0 ? (

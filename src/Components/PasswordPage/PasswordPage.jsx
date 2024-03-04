@@ -28,12 +28,12 @@ export default function PasswordPage() {
     e.preventDefault();
     if (choosedPasswords.pswdOne === choosedPasswords.pswdTwo) {
       updateUserPassword({ password: choosedPasswords.pswdTwo }, token)
-        .then((message) => {
-          alert(message);
+        .then(message => {
+          alert(message); 
           navigate("/dashboard");
         })
         .catch((error) => {
-          console.error("Errore while updating password", error.message);
+          alert(error.message);
         });
     } else {
       alert("You typed two different passwords");

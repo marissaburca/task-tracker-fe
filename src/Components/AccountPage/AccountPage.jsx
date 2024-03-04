@@ -69,9 +69,7 @@ export default function AccountPage() {
       avatarId: id,
     }));
   };
-  useEffect(() => {
-    console.log(userDetails);
-  }, [userDetails]);
+
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -115,7 +113,6 @@ export default function AccountPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(userDetails,"buoonaseraaaa");
     updateUserDetails(userDetails, token)
       .then((response) => {
         if (response) {

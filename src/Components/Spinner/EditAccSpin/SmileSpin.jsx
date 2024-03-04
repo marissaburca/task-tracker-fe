@@ -7,7 +7,7 @@ export default function SmileSpin() {
       <svg
         role="img"
         aria-label="Mouth and eyes come from 9:00 and rotate clockwise into position, right eye blinks, then all parts rotate and merge into 3:00"
-        class="smiley"
+        className="smiley"
         viewBox="0 0 128 128"
         width="50px"
         height="50px"
@@ -15,14 +15,14 @@ export default function SmileSpin() {
         <defs>
           <clipPath id="smiley-eyes">
             <circle
-              class="smiley__eye1"
+              className="smiley__eye1"
               cx="64"
               cy="64"
               r="8"
               transform="rotate(-40,64,64) translate(0,-56)"
             />
             <circle
-              class="smiley__eye2"
+              className="smiley__eye2"
               cx="64"
               cy="64"
               r="8"
@@ -30,8 +30,8 @@ export default function SmileSpin() {
             />
           </clipPath>
           <linearGradient id="smiley-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#000" />
-            <stop offset="100%" stop-color="#fff" />
+            <stop offset="0%" stopColor="#000" />
+            <stop offset="100%" stopColor="#fff" />
           </linearGradient>
           <mask id="smiley-mask">
             <rect
@@ -44,27 +44,27 @@ export default function SmileSpin() {
           </mask>
         </defs>
         <g
-          stroke-linecap="round"
-          stroke-width="12"
-          stroke-dasharray="175.93 351.86"
+          strokeLinecap="round"
+          strokeWidth="12"
+          strokeDasharray="175.93 351.86"
         >
           <g>
             <rect
               fill="hsl(193,90%,50%)"
               width="128"
               height="64"
-              clip-path="url(#smiley-eyes)"
+              clipPath="url(#smiley-eyes)"
             />
             <g fill="none" stroke="hsl(193,90%,50%)">
               <circle
-                class="smiley__mouth1"
+                className="smiley__mouth1"
                 cx="64"
                 cy="64"
                 r="56"
                 transform="rotate(180,64,64)"
               />
               <circle
-                class="smiley__mouth2"
+                className="smiley__mouth2"
                 cx="64"
                 cy="64"
                 r="56"
@@ -77,18 +77,18 @@ export default function SmileSpin() {
               fill="hsl(223,90%,50%)"
               width="128"
               height="64"
-              clip-path="url(#smiley-eyes)"
+              clipPath="url(#smiley-eyes)"
             />
             <g fill="none" stroke="hsl(223,90%,50%)">
               <circle
-                class="smiley__mouth1"
+                className="smiley__mouth1"
                 cx="64"
                 cy="64"
                 r="56"
                 transform="rotate(180,64,64)"
               />
               <circle
-                class="smiley__mouth2"
+                className="smiley__mouth2"
                 cx="64"
                 cy="64"
                 r="56"

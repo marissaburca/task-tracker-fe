@@ -68,7 +68,6 @@ export const signupUser = (userDetails) => {
       }
       const data = await response.json();
       console.log(data);
-      localStorage.setItem("userId", data.id.toString());
       localStorage.setItem("username", data.username);
       localStorage.setItem("avatar url", data.avatarUrl);
     } catch (error) {

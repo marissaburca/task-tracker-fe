@@ -79,6 +79,7 @@ export default function LogInPage() {
                   type="email"
                   placeholder="enter email..."
                   className="glow"
+              
                 />
               </Form.Group>
             </Col>
@@ -96,7 +97,7 @@ export default function LogInPage() {
               </Form.Group>
             </Col>
             <Col xs={5} className=" d-flex align-self-end ">
-              <button className="px-3 py-1 glowing-btn-1 fw-bold" type="submit">
+              <button className="px-3 py-1 glowing-btn-1 fw-bold" type="submit" >
                 LOG IN
               </button>
             </Col>

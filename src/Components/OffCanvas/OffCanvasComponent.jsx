@@ -43,50 +43,50 @@ export default function OffCanvas() {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Row className="p-0">
-            <Col className="col-12 mx-4 border-bottom border-2 pb-3 ">
+            <Col className="col-12 mx-4 border-bottom border-2 pb-2 block-action">
               <Link
        
                 to="/dashboard"
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <IoHome className="me-3 mb-1" />
-                <p className="mb-0">Dashboard</p>
+                <p>Dashboard</p>
               </Link>
             </Col>
-            <Col className="col-12 mx-4 border-bottom border-2 py-3 ">
+            <Col className="col-12 mx-4 border-bottom border-2 py-3 block-action">
               <Link
                 to="/"
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <IoNotifications className="me-3 mb-1" />
-                <p className="mb-0">Notification</p>
+                <p>Notification</p>
               </Link>
             </Col>
-            <Col className="col-12 mx-4 border-bottom border-2 py-3">
+            <Col className="col-12 mx-4 border-bottom border-2 py-3 block-action">
               <Link
                 to="/account"
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <RiAccountCircleFill className="me-3 mb-1" />
-                <p className="mb-0">Your Account</p>
+                <p>Your Account</p>
               </Link>
             </Col>
-            <Col className="col-12 mx-4 border-bottom border-2 py-3">
+            <Col className="col-12 mx-4 border-bottom border-2 py-3 block-action">
               <Link
                 to="/password"
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <RiLockPasswordFill className="me-3 mb-1" />
-                <p className="mb-0">Edit Password</p>
+                <p>Edit Password</p>
               </Link>
             </Col>
-            <Col className="col-12 mx-4 border-bottom border-2 py-3">
+            <Col className="col-12 mx-4 border-bottom border-2 py-3 block-action">
               <Link
                 to="/terms"
                 className="text-decoration-none text-secondary action fs-5  d-flex align-items-center "
               >
                 <GrDocumentText className="me-3 mb-1" />
-                <p className="mb-0">Terms & Conditions</p>
+                <p>Terms & Conditions</p>
               </Link>
             </Col>
             <Col className="col-12 text-end mt-3">

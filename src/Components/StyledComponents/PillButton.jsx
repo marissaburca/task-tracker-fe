@@ -18,6 +18,7 @@ const PillButtonStyle = styled.div`
   z-index: 11;
   @media (max-width: 770px) {
     top: 5px;
+    right:15px;
     width:30px;
     height:15px;
   }
