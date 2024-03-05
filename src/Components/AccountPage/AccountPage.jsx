@@ -62,7 +62,6 @@ export default function AccountPage() {
   }, []);
 
   const handleAvatarClick = (id) => {
-    console.log("Id selected avatar:", id);
     setSelectedAvatarId(id);
     setUserDetails((userDetails) => ({
       ...userDetails,

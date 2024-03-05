@@ -36,7 +36,6 @@ export const updateUserDetails = async (userDetails, token) => {
       throw new Error("Registration failed");
     }
     const data = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.log(error.message);
